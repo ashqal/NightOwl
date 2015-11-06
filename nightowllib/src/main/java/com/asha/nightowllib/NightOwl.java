@@ -2,8 +2,9 @@ package com.asha.nightowllib;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.util.AttributeSet;
 import android.view.ContextThemeWrapper;
-import android.view.InjectLayoutInflater;
+import android.view.InjectedLayoutInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,9 @@ import com.asha.nightowllib.styleable.IStyleableHandler;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
+import static com.asha.nightowllib.NightOwlUtil.checkHandler;
 import static com.asha.nightowllib.NightOwlUtil.checkNonNull;
+import static com.asha.nightowllib.NightOwlUtil.checkViewCollected;
 
 /**
  * Created by hzqiujiadi on 15/11/5.
@@ -33,13 +36,14 @@ public class NightOwl {
     public static void inject(Activity activity){
         Window window = activity.getWindow();
         LayoutInflater layoutInflater = window.getLayoutInflater();
-        InjectLayoutInflater injectLayoutInflater = new InjectLayoutInflater(layoutInflater,activity);
-        injectLayoutInflater(injectLayoutInflater
+
+        LayoutInflater injectLayoutInflater1 = InjectedLayoutInflater.newInstance(layoutInflater, activity);
+        injectLayoutInflater(injectLayoutInflater1
                 ,activity.getWindow()
                 ,activity.getWindow().getClass()
                 ,"mLayoutInflater");
 
-        InjectLayoutInflater injectLayoutInflater2 = new InjectLayoutInflater(layoutInflater,activity);
+        LayoutInflater injectLayoutInflater2 = injectLayoutInflater1.cloneInContext(activity);
         injectLayoutInflater(injectLayoutInflater2
                 , activity
                 , ContextThemeWrapper.class
@@ -67,6 +71,26 @@ public class NightOwl {
 
     public static void handleViewClz(Class<View> clz){
         sStyleableTable.put(clz,generateHandler());
+    }
+
+    public static void handleOnCreateView(@NonNull View view, @NonNull AttributeSet attrs) {
+        // check the view has been collected
+        if ( checkViewCollected(view) ) return;
+        NightOwl nightOwl = sharedInstance();
+
+        // query the handler
+        IStyleableHandler handler = nightOwl.queryHandler(view.getClass());
+        if ( !checkHandler(handler,view) ) return;
+
+        // do collect
+        handler.collect(view,view.getContext(),attrs);
+
+    }
+
+
+
+    private IStyleableHandler queryHandler(Class clz) {
+        return null;
     }
 
     // TODO: 15/11/5 impl it later.

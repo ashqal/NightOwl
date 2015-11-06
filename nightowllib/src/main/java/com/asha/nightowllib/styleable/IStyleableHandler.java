@@ -9,7 +9,6 @@ import android.view.View;
  * hzqiujiadi ashqalcn@gmail.com
  */
 public interface IStyleableHandler {
-    public static final int NIGHT_OWL_VIEW_TAG = (2 >>> 24);
     void collect(View view, Context context, AttributeSet attrs);
     void onModeChanged(int mode, View view);
 }

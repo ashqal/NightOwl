@@ -2,15 +2,11 @@ package com.asha.nightowl;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.asha.demohelperlib.DemoHelperActivity;
 import com.asha.nightowllib.NightOwl;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 
 public class MainActivity extends DemoHelperActivity {
 
@@ -42,39 +38,11 @@ public class MainActivity extends DemoHelperActivity {
                 LayoutInflater inflater1 = getLayoutInflater();
                 LayoutInflater inflater2 = LayoutInflater.from(MainActivity.this);
 
-                try {
-                    DHLog("before:%s", data);
-                    setFinalStatic(MainActivity.class, "data", "good");
-                    DHLog("after:%s", data);
-                } catch (NoSuchFieldException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
+                DHLog("before:%s", data);
+                DHLog("after:%s", data);
             }
         });
     }
 
-
-
-    static void setFinalStatic(Class clazz, String fieldName, Object newValue) throws NoSuchFieldException, IllegalAccessException {
-        Field field = clazz.getDeclaredField(fieldName);
-        field.setAccessible(true);
-
-        Field fieldArtField = Field.class.getDeclaredField("artField");
-        fieldArtField.setAccessible(true);
-        Object artField = fieldArtField.get(field);
-        Class ArtFieldClz = artField.getClass();
-
-
-        Field accessFlags = ArtFieldClz.getDeclaredField("accessFlags");
-        accessFlags.setAccessible(true);
-        int flag = accessFlags.getInt(artField);
-        accessFlags.setInt(artField, flag & ~Modifier.FINAL);
-
-        field.set(null, newValue);
-        Log.e("ashqal", "after2:" + field.get(null));
-
-    }
 
 }
