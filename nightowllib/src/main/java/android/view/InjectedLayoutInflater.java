@@ -1,13 +1,12 @@
 package android.view;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 
 import com.asha.nightowllib.NightOwl;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
@@ -16,8 +15,9 @@ import java.lang.reflect.Method;
  */
 public class InjectedLayoutInflater extends LayoutInflater {
 
-    Field mFactorySetField;
     Method mSetPrivateFactoryMethod;
+    Field mPrivateFactoryField;
+    Field mConstructorArgsField;
     private static final String[] sClassPrefixList = {
             "android.widget.",
             "android.webkit.",
@@ -33,53 +33,70 @@ public class InjectedLayoutInflater extends LayoutInflater {
     private InjectedLayoutInflater(LayoutInflater original, Context newContext) {
         super(original, newContext);
         init();
+        installPrivateFactory();
     }
 
-    public static class FactoryWrapper implements Factory {
-        private Factory mFactory;
-        public static Factory wrap(Factory factory){
-            return new FactoryWrapper(factory);
-        }
-        private FactoryWrapper(Factory factory) {
-            mFactory = factory;
-        }
-
-        @Override
-        public View onCreateView(String name, Context context, AttributeSet attrs) {
-            View v = mFactory.onCreateView(name,context,attrs);
-            //Log.e(TAG, "onCreateView FactoryWrapper:" + name + "," + v);
-            handleOnCreateView(v,name,attrs);
-            return v;
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class FactoryWrapper2 implements Factory2 {
-        private Factory2 mFactory;
-        public static Factory wrap(Factory2 factory){
-            return new FactoryWrapper(factory);
-        }
-        private FactoryWrapper2(Factory2 factory) {
-            mFactory = factory;
-        }
-
-        @Override
-        public View onCreateView(String name, Context context, AttributeSet attrs) {
-            View v = mFactory.onCreateView(name,context,attrs);
-            //Log.e(TAG, "onCreateView FactoryWrapper2:" + name + "," + v);
-            handleOnCreateView(v,name,attrs);
-            return v;
-        }
-
-        @Override
-        public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
-            View v = mFactory.onCreateView(name,context,attrs);
-            //Log.e(TAG, "onCreateView FactoryWrapper2:" + name + "," + v);
-            handleOnCreateView(v,name,attrs);
-            return v;
+    private void init() {
+        try {
+            mSetPrivateFactoryMethod = LayoutInflater.class.getDeclaredMethod("setPrivateFactory",Factory2.class);
+            mSetPrivateFactoryMethod.setAccessible(true);
+            mPrivateFactoryField = LayoutInflater.class.getDeclaredField("mPrivateFactory");
+            mPrivateFactoryField.setAccessible(true);
+            mConstructorArgsField = LayoutInflater.class.getDeclaredField("mConstructorArgs");
+            mConstructorArgsField.setAccessible(true);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
         }
     }
 
+    private void installPrivateFactory(){
+        try {
+            Factory2 privateFactory = (Factory2) mPrivateFactoryField.get(this);
+            installPrivateFactoryInner(privateFactory);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void installPrivateFactoryInner(Factory2 originPrviateFactory){
+        try {
+            // check originPrviateFactory is not null.
+            if ( originPrviateFactory == null ) return;
+            // already set
+            if ( originPrviateFactory instanceof FactoryWrapper.PrivateFactoryWrapperImpl ) return;
+            // wrap PrivateFactory
+            Factory2 privateFactory = FactoryWrapper.wrapPrivate(originPrviateFactory,this);
+            // replace it.
+            mPrivateFactoryField.set(this, privateFactory);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setPrivateFactory(Factory2 factory2){
+        try {
+            Factory2 privateFactory = (Factory2) mPrivateFactoryField.get(this);
+            if ( privateFactory != null
+                    &&  privateFactory instanceof FactoryWrapper.PrivateFactoryWrapperImpl ){
+                // if it is FactoryWrapper.PrivateFactoryWrapperImpl
+                // get inner factory and
+                // set to super class
+                privateFactory = ((FactoryWrapper.PrivateFactoryWrapperImpl) privateFactory)
+                        .getCoreFactory();
+                mPrivateFactoryField.set(this,privateFactory);
+            }
+            // super.setPrivateFactory
+            mSetPrivateFactoryMethod.invoke(this, factory2);
+            installPrivateFactoryInner(factory2);
+
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void setFactory(Factory factory) {
@@ -94,23 +111,8 @@ public class InjectedLayoutInflater extends LayoutInflater {
     public void setFactory2(Factory2 factory) {
         if ( factory == null ) return;
         if ( getFactory2() == null ){
-            super.setFactory(FactoryWrapper2.wrap(factory));
+            super.setFactory(FactoryWrapper.wrapF2(factory));
         }
-    }
-
-    private void init() {
-        try {
-            mFactorySetField = LayoutInflater.class.getDeclaredField("mFactorySet");
-            mFactorySetField.setAccessible(true);
-
-            mSetPrivateFactoryMethod = LayoutInflater.class.getDeclaredMethod("setPrivateFactory",Factory2.class);
-            mSetPrivateFactoryMethod.setAccessible(true);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-
     }
 
     @Override
@@ -142,10 +144,17 @@ public class InjectedLayoutInflater extends LayoutInflater {
         return v;
     }
 
-    private static void handleOnCreateView(View view,String name,AttributeSet attrs){
-        if ( view == null ) return;
-        NightOwl.handleOnCreateView(view,attrs);
+    public Object[] getConstructorArgs(){
+        try {
+            return (Object[]) mConstructorArgsField.get(this);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-
+    public static void handleOnCreateView(View view,String name,AttributeSet attrs){
+        if ( view == null ) return;
+        NightOwl.handleViewCreated(view,attrs);
+    }
 }

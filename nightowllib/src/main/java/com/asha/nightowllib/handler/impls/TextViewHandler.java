@@ -1,16 +1,16 @@
-package com.asha.nightowllib.styleable.impls;
+package com.asha.nightowllib.handler.impls;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.asha.nightowllib.styleable.IStyleableHandler;
+import com.asha.nightowllib.handler.ISkinHandler;
 
 /**
  * Created by hzqiujiadi on 15/11/5.
  * hzqiujiadi ashqalcn@gmail.com
  */
-public class TextViewHandler implements IStyleableHandler {
+public class TextViewHandler implements ISkinHandler {
 
 
     @Override

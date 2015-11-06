@@ -10,7 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
-import com.asha.nightowllib.styleable.IStyleableHandler;
+import com.asha.nightowllib.handler.ISkinHandler;
+import com.asha.nightowllib.handler.impls.DefaultSkinHandler;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -27,8 +28,8 @@ public class NightOwl {
     private static final String TAG = "NightOwl";
     private static NightOwl sInstance;
 
-    HashMap<Class<? extends View>,IStyleableHandler> mHandlers;
-    private static HashMap<Class<? extends View>,Class<IStyleableHandler>> sStyleableTable = new HashMap<>();
+    HashMap<Class<? extends View>,ISkinHandler> mHandlers;
+    private static HashMap<Class<? extends View>,Class<ISkinHandler>> sStyleableTable = new HashMap<>();
     private NightOwl(){
         mHandlers = new HashMap<>();
     }
@@ -73,13 +74,13 @@ public class NightOwl {
         sStyleableTable.put(clz,generateHandler());
     }
 
-    public static void handleOnCreateView(@NonNull View view, @NonNull AttributeSet attrs) {
+    public static void handleViewCreated(@NonNull View view, @NonNull AttributeSet attrs) {
         // check the view has been collected
         if ( checkViewCollected(view) ) return;
         NightOwl nightOwl = sharedInstance();
 
         // query the handler
-        IStyleableHandler handler = nightOwl.queryHandler(view.getClass());
+        ISkinHandler handler = nightOwl.queryHandler(view.getClass());
         if ( !checkHandler(handler,view) ) return;
 
         // do collect
@@ -89,18 +90,22 @@ public class NightOwl {
 
 
 
-    private IStyleableHandler queryHandler(Class clz) {
-        return null;
+    private ISkinHandler queryHandler(Class clz) {
+        return new DefaultSkinHandler();
     }
 
     // TODO: 15/11/5 impl it later.
-    private static Class<IStyleableHandler> generateHandler() {
+    private static Class<ISkinHandler> generateHandler() {
         return null;
     }
 
     private static NightOwl sharedInstance(){
         checkNonNull(sInstance,"You must create NightOwl in Application onCreate.");
         return sInstance;
+    }
+
+    public static Builder builder(){
+        return new Builder();
     }
 
     public static class Builder {
