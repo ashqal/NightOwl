@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="NightOwl_View">
+        <attr name="night_background" format="color|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="NightOwl_TextView">
+        <attr name="night_textColor" format="color|reference" />
+        <attr name="night_textColorHint" format="color|reference" />
+    </declare-styleable>
+
+</resources>

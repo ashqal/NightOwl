@@ -10,5 +10,5 @@ import android.view.View;
  */
 public interface ISkinHandler {
     void collect(View view, Context context, AttributeSet attrs);
-    void onModeChanged(int mode, View view);
+    void onSkinChanged(int skin, View view);
 }

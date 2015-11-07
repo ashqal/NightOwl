@@ -1,9 +1,11 @@
 package com.asha.nightowllib;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 
 import com.asha.nightowllib.handler.ISkinHandler;
+import com.asha.nightowllib.paint.ColorBox;
 
 /**
  * Created by hzqiujiadi on 15/11/5.
@@ -29,8 +31,20 @@ public class NightOwlUtil {
         return view.getTag( NIGHT_OWL_VIEW_TAG ) != null;
     }
 
-    public static void insertSkinContext(View view,Object obj){
-        view.setTag(NIGHT_OWL_VIEW_TAG,obj);
+    public static void insertSkinBox(@NonNull View view,ColorBox box){
+        view.setTag(NIGHT_OWL_VIEW_TAG, box);
     }
+
+    public static ColorBox obtainSkinBox(@NonNull View view){
+        Object box = view.getTag(NIGHT_OWL_VIEW_TAG);
+        checkNonNull(box,"wtf, it can't be null.");
+        if ( box instanceof ColorBox ){
+            return (ColorBox) box;
+        } else {
+            Log.e(TAG, "wtf, NIGHT_OWL_VIEW_TAG had been used by someone else.");
+        }
+        return null;
+    }
+
 
 }

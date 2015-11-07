@@ -8,9 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.asha.nightowllib.handler.ISkinHandler;
+import com.asha.nightowllib.handler.impls.ButtonHandler;
 import com.asha.nightowllib.handler.impls.DefaultSkinHandler;
+import com.asha.nightowllib.handler.impls.TextViewHandler;
 import com.asha.nightowllib.inflater.Factory4InjectedInflater;
 
 import java.lang.reflect.Field;
@@ -28,8 +32,13 @@ public class NightOwl {
     private static final String TAG = "NightOwl";
     private static NightOwl sInstance;
 
-    HashMap<Class<? extends View>,ISkinHandler> mHandlers;
-    private static HashMap<Class<? extends View>,Class<ISkinHandler>> sStyleableTable = new HashMap<>();
+    HashMap<Class,ISkinHandler> mHandlers;
+    private static HashMap<Class,Class<? extends ISkinHandler>> sHandlerTable = new HashMap<>();
+    static {
+        sHandlerTable.put(TextView.class, TextViewHandler.class);
+        sHandlerTable.put(Button.class, ButtonHandler.class);
+        sHandlerTable.put(DefaultSkinHandler.class, DefaultSkinHandler.class);
+    }
     private NightOwl(){
         mHandlers = new HashMap<>();
     }
@@ -71,7 +80,7 @@ public class NightOwl {
     }
 
     public static void handleViewClz(Class<View> clz){
-        sStyleableTable.put(clz,generateHandler());
+        sHandlerTable.put(clz, generateHandler());
     }
 
     public static void handleViewCreated(@NonNull View view, @NonNull AttributeSet attrs) {
@@ -84,14 +93,28 @@ public class NightOwl {
         if ( !checkHandler(handler,view) ) return;
 
         // do collect
-        handler.collect(view,view.getContext(),attrs);
+        handler.collect(view, view.getContext(), attrs);
 
     }
 
 
 
     private ISkinHandler queryHandler(Class clz) {
-        return new DefaultSkinHandler();
+        Class<? extends ISkinHandler> handlerClz = sHandlerTable.get(clz);
+        if ( handlerClz == null ) handlerClz = DefaultSkinHandler.class;
+
+        ISkinHandler skinHandler = mHandlers.get(handlerClz);
+        if ( skinHandler == null ){
+            try {
+                skinHandler = handlerClz.newInstance();
+                mHandlers.put(handlerClz,skinHandler);
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return skinHandler;
     }
 
     // TODO: 15/11/5 impl it later.

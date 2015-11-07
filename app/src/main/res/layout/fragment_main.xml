@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="200dp" android:background="#FFCC11">
+    xmlns:night="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fffae8">
     <TextView
-        android:text="main fragment"
+        style="@style/MyTextStyle"
+        android:text="for style"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        tools:ignore="MissingPrefix" />
+    <TextView
+        android:textColor="#FFCC11"
+        night:night_textColor="#dd0000"
+        android:text="for attr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingPrefix" />
+    <Button
+        android:text="ashqal"
+        android:textColor="#FFCC11"
+        night:night_textColor="#dd0000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingPrefix" />
 </LinearLayout>
