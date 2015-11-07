@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.ContextThemeWrapper;
-import android.view.InjectedLayoutInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import android.view.Window;
 
 import com.asha.nightowllib.handler.ISkinHandler;
 import com.asha.nightowllib.handler.impls.DefaultSkinHandler;
+import com.asha.nightowllib.inflater.Factory4InjectedInflater;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -38,7 +38,7 @@ public class NightOwl {
         Window window = activity.getWindow();
         LayoutInflater layoutInflater = window.getLayoutInflater();
 
-        LayoutInflater injectLayoutInflater1 = InjectedLayoutInflater.newInstance(layoutInflater, activity);
+        LayoutInflater injectLayoutInflater1 = Factory4InjectedInflater.newInstance(layoutInflater, activity);
         injectLayoutInflater(injectLayoutInflater1
                 ,activity.getWindow()
                 ,activity.getWindow().getClass()
