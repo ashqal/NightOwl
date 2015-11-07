@@ -25,7 +25,7 @@ public class TextColorPaint implements IMagicPaint {
         TextView tv = (TextView) view;
         ColorStateList color1 = tv.getTextColors();
         ColorStateList color2 = a.getColorStateList(attr);
-        into.push(attr,color1,color2);
+        into.put(attr, color1, color2);
     }
 
 

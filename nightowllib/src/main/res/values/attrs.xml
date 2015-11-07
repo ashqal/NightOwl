@@ -6,6 +6,7 @@
     </declare-styleable>
 
     <declare-styleable name="NightOwl_TextView">
+        <attr name="textAppearance" format="reference" />
         <attr name="night_textColor" format="color|reference" />
         <attr name="night_textColorHint" format="color|reference" />
     </declare-styleable>
