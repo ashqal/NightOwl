@@ -19,11 +19,7 @@ public class BackgroundPaint implements IOwlPaint {
     @Override
     public void draw(View view, Object value) {
         Drawable drawable = (Drawable) value;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            view.setBackground(drawable);
-        } else {
-            view.setBackgroundDrawable(drawable);
-        }
+        setBackgroundCompact(view,drawable);
     }
 
     @Override
@@ -33,6 +29,16 @@ public class BackgroundPaint implements IOwlPaint {
         into.put(attr, scope, bg1, bg2);
     }
 
+    private void setBackgroundCompact(View view,Drawable drawable){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            view.setBackground(drawable);
+        } else {
+            setBackgroundPrev15(view, drawable);
+        }
+    }
 
-
+    @SuppressWarnings("deprecation")
+    private void setBackgroundPrev15(View view,Drawable drawable){
+        view.setBackgroundDrawable(drawable);
+    }
 }

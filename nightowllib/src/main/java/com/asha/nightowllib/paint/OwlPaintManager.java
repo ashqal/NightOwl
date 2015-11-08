@@ -2,7 +2,7 @@ package com.asha.nightowllib.paint;
 
 import android.util.SparseArray;
 
-import com.asha.nightowllib.handler.IOwlStyleable;
+import com.asha.nightowllib.NightOwlTable;
 import com.asha.nightowllib.handler.annotations.OwlAttr;
 import com.asha.nightowllib.handler.annotations.OwlAttrScope;
 
@@ -22,7 +22,7 @@ public class OwlPaintManager {
     private static final Map<Class< ? extends IOwlPaint>,IOwlPaint> sPaintInstances = new HashMap<>();
     static {
         // traverse all subclass.
-        Class<?>[] classes = IOwlStyleable.class.getDeclaredClasses();
+        Class<?>[] classes = NightOwlTable.class.getDeclaredClasses();
         for ( Class subClz : classes ){
             // look for all OwlAttrScope
             OwlAttrScope owlAttrScope = (OwlAttrScope) subClz.getAnnotation(OwlAttrScope.class);
@@ -39,9 +39,7 @@ public class OwlPaintManager {
                 Class< ? extends IOwlPaint> targetClz = attr.value();
                 sPaints.append( attrId + scope,targetClz );
             }
-
         }
-
     }
 
     public static IOwlPaint queryPaint(int attrWithScope){

@@ -11,23 +11,33 @@ import static com.asha.nightowllib.paint.OwlPaintManager.queryPaint;
  * hzqiujiadi ashqalcn@gmail.com
  */
 public class ColorBox {
+    private int mMode = -1;
     // may override the value, so we use SparseArray
     private SparseArray<Object[]> mBox;
-    protected ColorBox() {
+    private ColorBox() {
         mBox = new SparseArray<>();
     }
 
     public void put(int attr, int scope, @NonNull Object... objects){
         mBox.put(attr + scope, objects);
     }
-    public void changeSkin(int skin, View view){
-        int size = mBox.size();
-        for (int i = 0; i < size; i++) {
-            int attrWithScope = mBox.keyAt(i);
-            Object[] res = mBox.valueAt(i);
-            IOwlPaint paint = queryPaint(attrWithScope);
-            if ( paint != null ) paint.draw(view, res[skin]);
+
+    public void refreshSkin(int mode, View view, boolean force){
+        if ( force ) mMode = -1;
+        refreshSkin(mode,view);
+    }
+
+    public void refreshSkin(int mode, View view){
+        if ( mMode != mode ){
+            int size = mBox.size();
+            for (int i = 0; i < size; i++) {
+                int attrWithScope = mBox.keyAt(i);
+                Object[] res = mBox.valueAt(i);
+                IOwlPaint paint = queryPaint(attrWithScope);
+                if ( paint != null ) paint.draw(view, res[mode]);
+            }
         }
+        mMode = mode;
     }
     public static ColorBox newInstance() {
         return new ColorBox();

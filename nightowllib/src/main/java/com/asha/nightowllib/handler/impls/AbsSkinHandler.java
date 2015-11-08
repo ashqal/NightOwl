@@ -11,11 +11,10 @@ import android.view.View;
 import com.asha.nightowllib.handler.ISkinHandler;
 import com.asha.nightowllib.handler.annotations.OwlAttrScope;
 import com.asha.nightowllib.handler.annotations.OwlStyleable;
-import com.asha.nightowllib.handler.annotations.SystemStyleable;
+import com.asha.nightowllib.handler.annotations.OwlSysStyleable;
 import com.asha.nightowllib.paint.ColorBox;
 import com.asha.nightowllib.paint.IOwlPaint;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 import static com.asha.nightowllib.NightOwlUtil.getStaticFieldIntArraySafely;
@@ -33,22 +32,20 @@ public abstract class AbsSkinHandler implements ISkinHandler {
 
 
     @Override
-    public void collect(View view, Context context, AttributeSet attrs) {
+    public void collect(int mode, View view, Context context, AttributeSet attrs) {
         Log.d(TAG, String.format("collected %s %s %s", view, context, attrs));
         ColorBox box = ColorBox.newInstance();
         onBeforeCollect(box);
 
         final Resources.Theme theme = context.getTheme();
-        int customStyleResId = 0;
+        int systemStyleResId = 0;
         Class clz = this.getClass();
 
         // SystemStyleable
-        Annotation[] annotations = clz.getAnnotations();
-        for (Annotation  annotation : annotations ){
-            if ( annotation instanceof SystemStyleable ){
-                String value = ((SystemStyleable) annotation).value();
-                customStyleResId = attrs.getAttributeResourceValue(ANDROID_XML, value, 0);
-            }
+        OwlSysStyleable systemStyleable = (OwlSysStyleable) clz.getAnnotation(OwlSysStyleable.class);
+        if ( systemStyleable != null ){
+            String value = systemStyleable.value();
+            systemStyleResId = attrs.getAttributeResourceValue(ANDROID_XML, value, 0);
         }
 
         // OwlStyleable
@@ -65,7 +62,7 @@ public abstract class AbsSkinHandler implements ISkinHandler {
             int[] styleableResId = getStaticFieldIntArraySafely(field);
             if ( styleableResId == null )  continue;
 
-            TypedArray a = theme.obtainStyledAttributes(attrs, styleableResId, 0, customStyleResId);
+            TypedArray a = theme.obtainStyledAttributes(attrs, styleableResId, 0, systemStyleResId);
             if ( a != null ){
                 obtainStyle(view, box, scope, a);
                 a.recycle();
@@ -74,6 +71,9 @@ public abstract class AbsSkinHandler implements ISkinHandler {
 
         onAfterCollect(box);
         insertSkinBox(view, box);
+
+        // first refresh
+        box.refreshSkin(mode, view, true);
     }
 
     private void obtainStyle(View view
@@ -102,6 +102,6 @@ public abstract class AbsSkinHandler implements ISkinHandler {
     @Override
     final public void onSkinChanged(int skin, View view) {
         ColorBox box = obtainSkinBox(view);
-        if ( box != null ) box.changeSkin(skin,view);
+        if ( box != null ) box.refreshSkin(skin, view);
     }
 }

@@ -2,6 +2,7 @@ package com.asha.nightowllib;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.asha.nightowllib.handler.ISkinHandler;
@@ -75,6 +76,19 @@ public class NightOwlUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void injectLayoutInflater(LayoutInflater layoutInflater, Object src,Class clz, String name){
+        try {
+            Field field = clz.getDeclaredField(name);
+            field.setAccessible(true);
+            field.set(src, layoutInflater);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

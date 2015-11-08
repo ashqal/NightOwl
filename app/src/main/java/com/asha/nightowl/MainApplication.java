@@ -12,6 +12,6 @@ public class MainApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        NightOwl.builder().create();
+        NightOwl.builder().defualt(MainActivity.sDefualtMode).create();
     }
 }

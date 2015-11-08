@@ -2,7 +2,6 @@ package com.asha.nightowl;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
 
 import com.asha.demohelperlib.DemoHelperActivity;
@@ -10,8 +9,8 @@ import com.asha.nightowllib.NightOwl;
 
 public class MainActivity extends DemoHelperActivity {
 
-
-    static final String data = "ashqal";
+    public static final int sDefualtMode = 0;
+    private int mMode = sDefualtMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,8 +18,17 @@ public class MainActivity extends DemoHelperActivity {
         super.onCreate(savedInstanceState);
     }
 
+
     @Override
     protected void onViewCreated() {
+        addButton("change skin", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMode++;
+                mMode %= 2;
+                NightOwl.refreshSkin( mMode, MainActivity.this );
+            }
+        });
         addButton("add Fragment", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -30,19 +38,5 @@ public class MainActivity extends DemoHelperActivity {
                         .commit();
             }
         });
-
-        addButton("modify static final", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getWindow();
-                LayoutInflater inflater1 = getLayoutInflater();
-                LayoutInflater inflater2 = LayoutInflater.from(MainActivity.this);
-
-                DHLog("before:%s", data);
-                DHLog("after:%s", data);
-            }
-        });
     }
-
-
 }

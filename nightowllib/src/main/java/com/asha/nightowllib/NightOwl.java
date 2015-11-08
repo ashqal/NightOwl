@@ -8,21 +8,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.TextView;
 
+import com.asha.nightowllib.handler.HandlerManager;
 import com.asha.nightowllib.handler.ISkinHandler;
-import com.asha.nightowllib.handler.impls.ButtonHandler;
-import com.asha.nightowllib.handler.impls.DefaultSkinHandler;
-import com.asha.nightowllib.handler.impls.TextViewHandler;
 import com.asha.nightowllib.inflater.Factory4InjectedInflater;
+import com.asha.nightowllib.paint.ColorBox;
 
-import java.lang.reflect.Field;
-import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.asha.nightowllib.NightOwlUtil.checkHandler;
 import static com.asha.nightowllib.NightOwlUtil.checkNonNull;
 import static com.asha.nightowllib.NightOwlUtil.checkViewCollected;
+import static com.asha.nightowllib.NightOwlUtil.injectLayoutInflater;
+import static com.asha.nightowllib.NightOwlUtil.obtainSkinBox;
+import static com.asha.nightowllib.handler.HandlerManager.queryHandler;
 
 /**
  * Created by hzqiujiadi on 15/11/5.
@@ -30,17 +29,15 @@ import static com.asha.nightowllib.NightOwlUtil.checkViewCollected;
  */
 public class NightOwl {
     private static final String TAG = "NightOwl";
+    private static final String WINDOW_INFLATER = "mLayoutInflater";
+    private static final String THEME_INFLATER = "mInflater";
+    private AtomicInteger mMode = new AtomicInteger(0);
     private static NightOwl sInstance;
-
-    HashMap<Class,ISkinHandler> mHandlers;
-    private static HashMap<Class,Class<? extends ISkinHandler>> sHandlerTable = new HashMap<>();
     static {
-        sHandlerTable.put(TextView.class, TextViewHandler.class);
-        sHandlerTable.put(Button.class, ButtonHandler.class);
-        sHandlerTable.put(DefaultSkinHandler.class, DefaultSkinHandler.class);
+        NightOwlTable.init();
     }
+
     private NightOwl(){
-        mHandlers = new HashMap<>();
     }
 
     public static void inject(Activity activity){
@@ -49,77 +46,57 @@ public class NightOwl {
 
         LayoutInflater injectLayoutInflater1 = Factory4InjectedInflater.newInstance(layoutInflater, activity);
         injectLayoutInflater(injectLayoutInflater1
-                ,activity.getWindow()
-                ,activity.getWindow().getClass()
-                ,"mLayoutInflater");
+                , activity.getWindow()
+                , activity.getWindow().getClass()
+                , WINDOW_INFLATER);
 
         LayoutInflater injectLayoutInflater2 = injectLayoutInflater1.cloneInContext(activity);
         injectLayoutInflater(injectLayoutInflater2
                 , activity
                 , ContextThemeWrapper.class
-                , "mInflater");
-
-
-
+                , THEME_INFLATER);
     }
-    private static void injectLayoutInflater(LayoutInflater layoutInflater, Object src,Class clz, String name){
-        try {
-            Field field = clz.getDeclaredField(name);
-            field.setAccessible(true);
-            field.set(src, layoutInflater);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+
+    public static void refreshSkin(int mode, @NonNull Activity activity){
+        NightOwl owl = sharedInstance();
+        if ( owl.mMode.get() != mode ){
+            View root = activity.getWindow().getDecorView();
+            innerRefreshSkin( mode, root );
+            owl.mMode.set(mode);
+        }
+    }
+
+    private static void innerRefreshSkin(int mode, View view){
+        if ( checkViewCollected(view) ){
+            ColorBox box = obtainSkinBox(view);
+            if ( box != null ) box.refreshSkin(mode, view);
         }
 
+        if ( view instanceof ViewGroup){
+            ViewGroup vg = (ViewGroup) view;
+            View sub;
+            for (int i = 0; i < vg.getChildCount(); i++) {
+                sub = vg.getChildAt(i);
+                innerRefreshSkin(mode, sub);
+            }
+        }
     }
 
-    public static void onModeChanged(int mode, Activity activity, @NonNull ViewGroup vp){
-
-    }
-
-    public static void handleViewClz(Class<View> clz){
-        sHandlerTable.put(clz, generateHandler());
+    public static void registerViewClz(Class<View> clz){
+        HandlerManager.registerView(clz);
     }
 
     public static void handleViewCreated(@NonNull View view, @NonNull AttributeSet attrs) {
         // check the view has been collected
         if ( checkViewCollected(view) ) return;
-        NightOwl nightOwl = sharedInstance();
 
         // query the handler
-        ISkinHandler handler = nightOwl.queryHandler(view.getClass());
+        ISkinHandler handler = queryHandler(view.getClass());
         if ( !checkHandler(handler,view) ) return;
 
+        NightOwl owl = sharedInstance();
         // do collect
-        handler.collect(view, view.getContext(), attrs);
-
-    }
-
-
-
-    private ISkinHandler queryHandler(Class clz) {
-        Class<? extends ISkinHandler> handlerClz = sHandlerTable.get(clz);
-        if ( handlerClz == null ) handlerClz = DefaultSkinHandler.class;
-
-        ISkinHandler skinHandler = mHandlers.get(handlerClz);
-        if ( skinHandler == null ){
-            try {
-                skinHandler = handlerClz.newInstance();
-                mHandlers.put(handlerClz,skinHandler);
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-        return skinHandler;
-    }
-
-    // TODO: 15/11/5 impl it later.
-    private static Class<ISkinHandler> generateHandler() {
-        return null;
+        handler.collect(owl.mMode.get(), view, view.getContext(), attrs);
     }
 
     private static NightOwl sharedInstance(){
@@ -132,10 +109,15 @@ public class NightOwl {
     }
 
     public static class Builder {
-
+        private int mode;
+        public Builder defualt(int mode){
+            this.mode = mode;
+            return this;
+        }
         public NightOwl create(){
             if ( sInstance != null ) throw new RuntimeException("Do not create NightOwl again.");
             sInstance = new NightOwl();
+            sInstance.mMode.set(mode);
             return sInstance;
         }
     }
