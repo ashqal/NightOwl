@@ -11,7 +11,7 @@ import android.view.View;
  * response for setup values and
  * draw draw draw draw
  */
-public interface IMagicPaint {
+public interface IOwlPaint {
     void draw(@NonNull View view, @NonNull Object value);
-    void setup(@NonNull View view, @NonNull TypedArray a, int attr,@NonNull ColorBox into);
+    void setup(@NonNull View view, @NonNull TypedArray a, int attr, int scope,@NonNull ColorBox into);
 }

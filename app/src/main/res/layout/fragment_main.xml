@@ -13,6 +13,12 @@
         android:layout_height="wrap_content"
         tools:ignore="MissingPrefix" />
     <TextView
+        android:textAppearance="@style/MyTextAppearance"
+        android:text="for textappearance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingPrefix" />
+    <TextView
         android:textColor="#FFCC11"
         night:night_textColor="#dd0000"
         android:text="for attr"

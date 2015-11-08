@@ -7,6 +7,8 @@ import android.view.View;
 import com.asha.nightowllib.handler.ISkinHandler;
 import com.asha.nightowllib.paint.ColorBox;
 
+import java.lang.reflect.Field;
+
 /**
  * Created by hzqiujiadi on 15/11/5.
  * hzqiujiadi ashqalcn@gmail.com
@@ -42,6 +44,35 @@ public class NightOwlUtil {
             return (ColorBox) box;
         } else {
             Log.e(TAG, "wtf, NIGHT_OWL_VIEW_TAG had been used by someone else.");
+        }
+        return null;
+    }
+
+    public static int getStaticFieldIntSafely(Field field){
+        try {
+            return field.getInt(null);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static int[] getStaticFieldIntArraySafely(Field field){
+        try {
+            return (int[]) field.get(null);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static <T> T newInstanceSafely(Class<T> clz){
+        try {
+            return clz.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
         return null;
     }
