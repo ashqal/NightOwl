@@ -3,7 +3,7 @@ package com.asha.nightowllib.handler;
 import android.view.View;
 
 import com.asha.nightowllib.handler.annotations.OwlHandle;
-import com.asha.nightowllib.handler.impls.DefaultSkinHandler;
+import com.asha.nightowllib.handler.impls.ViewHandler;
 
 import java.util.HashMap;
 
@@ -40,7 +40,7 @@ public class HandlerManager {
 
     public static ISkinHandler queryHandler(Class clz) {
         Class<? extends ISkinHandler> handlerClz = sHandlerTable.get(clz);
-        if ( handlerClz == null ) handlerClz = DefaultSkinHandler.class;
+        if ( handlerClz == null ) handlerClz = ViewHandler.class;
         ISkinHandler skinHandler = sHandlers.get(handlerClz);
         if ( skinHandler == null ) {
             skinHandler = newInstanceSafely(handlerClz);

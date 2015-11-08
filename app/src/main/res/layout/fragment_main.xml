@@ -6,6 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#fffae8">
+    <View
+        android:background="@drawable/selector_background_color"
+        night:night_background="@drawable/selector_background_color_n"
+        android:layout_width="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_height="60dp"
+        tools:ignore="MissingPrefix" />
     <TextView
         style="@style/MyTextStyle"
         android:text="for style"
@@ -24,6 +32,8 @@
         android:text="for attr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/selector_background_color"
+        night:night_background="@drawable/selector_background_color_n"
         tools:ignore="MissingPrefix" />
     <Button
         android:text="ashqal"
@@ -31,5 +41,8 @@
         night:night_textColor="#dd0000"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/selector_background_color"
+        night:night_background="@drawable/selector_background_color_n"
         tools:ignore="MissingPrefix" />
+
 </LinearLayout>
