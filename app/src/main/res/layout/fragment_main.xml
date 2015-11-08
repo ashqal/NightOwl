@@ -5,15 +5,31 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#fffae8">
+    android:layout_marginTop="1dp"
+    android:layout_marginBottom="1dp"
+    android:background="#cbfff6">
     <View
         android:background="@drawable/selector_background_color"
         night:night_background="@drawable/selector_background_color_n"
         android:layout_width="match_parent"
         android:clickable="true"
         android:focusable="true"
-        android:layout_height="60dp"
+        android:layout_height="48dp"
         tools:ignore="MissingPrefix" />
+    <LinearLayout
+        android:background="@drawable/selector_background_color"
+        night:night_background="@drawable/selector_background_color_n"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="vertical"
+        tools:ignore="MissingPrefix">
+        <TextView
+            android:text="for LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
     <TextView
         style="@style/MyTextStyle"
         android:text="for style"
