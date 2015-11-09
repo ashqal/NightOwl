@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
-import com.asha.nightowllib.handler.HandlerManager;
 import com.asha.nightowllib.handler.ISkinHandler;
 import com.asha.nightowllib.inflater.Factory4InjectedInflater;
 import com.asha.nightowllib.observer.IOwlObserver;
@@ -20,7 +19,6 @@ import com.asha.nightowllib.observer.impls.NavBarObserver;
 import com.asha.nightowllib.observer.impls.StatusBarObserver;
 import com.asha.nightowllib.paint.ColorBox;
 
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.asha.nightowllib.NightOwlUtil.checkBeforeLollipop;
@@ -43,7 +41,6 @@ public class NightOwl {
     private static final String WINDOW_INFLATER = "mLayoutInflater";
     private static final String THEME_INFLATER = "mInflater";
     private AtomicInteger mMode = new AtomicInteger(0);
-    private AtomicBoolean mWindowInited = new AtomicBoolean(false);
     private static NightOwl sInstance;
     static {
         NightOwlTable.init();
@@ -112,7 +109,28 @@ public class NightOwl {
         if ( observable != null ) observable.notifyObserver(mode, activity);
     }
 
+    /**
+     * Register a custom view which created by new instance directly.
+     *
+     * @param view instanceof IOwlObserver & View
+     *             NightOwl will trigger view.onSkinChange immediately.
+     */
+    public static void owlRegView( @NonNull IOwlObserver view ){
+        if ( view instanceof View ) {
+            View target = (View) view;
+            insertEmptyBox(target);
+            view.onSkinChange(owlCurrentMode(), null);
+        } else {
+            throw new IllegalArgumentException("owlAttach param must be a instance of View");
+        }
+    }
+
+    public static int owlCurrentMode(){
+        return sharedInstance().mMode.get();
+    }
+
     private static void innerRefreshSkin(int mode, View view , Activity activity){
+        // refresh current view
         if ( checkViewCollected(view) ){
             ColorBox box = obtainSkinBox(view);
             if ( box != null ) box.refreshSkin(mode, view);
@@ -120,7 +138,7 @@ public class NightOwl {
                 ((IOwlObserver) view).onSkinChange(mode,activity);
             }
         }
-
+        // traversal view tree
         if ( view instanceof ViewGroup){
             ViewGroup vg = (ViewGroup) view;
             View sub;
@@ -131,8 +149,8 @@ public class NightOwl {
         }
     }
 
-    protected static void registerViewClz(Class<View> clz){
-        HandlerManager.registerView(clz);
+    private static void owlRegViewClz(Class<? extends View> clz){
+        //HandlerManager.registerView(clz);
     }
 
     public static void handleViewCreated(@NonNull View view, @NonNull AttributeSet attrs) {
