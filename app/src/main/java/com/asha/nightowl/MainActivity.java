@@ -15,10 +15,10 @@ public class MainActivity extends DemoHelperActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        NightOwl.inject(this);
+        NightOwl.owlBeforeCreate(this);
         super.onCreate(savedInstanceState);
+        NightOwl.owlAfterCreate(this);
     }
-
 
     @Override
     protected void onViewCreated() {
@@ -27,7 +27,7 @@ public class MainActivity extends DemoHelperActivity {
             public void onClick(View v) {
                 mMode++;
                 mMode %= 2;
-                NightOwl.refreshSkin( mMode, MainActivity.this );
+                NightOwl.owlDressUp( mMode, MainActivity.this );
             }
         });
         addButton("add Fragment", new View.OnClickListener() {

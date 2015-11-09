@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.asha.nightowllib.handler.ISkinHandler;
+import com.asha.nightowllib.observer.OwlObservable;
 import com.asha.nightowllib.paint.ColorBox;
 
 import java.lang.reflect.Field;
@@ -34,7 +35,7 @@ public class NightOwlUtil {
         return view.getTag( NIGHT_OWL_VIEW_TAG ) != null;
     }
 
-    public static void insertSkinBox(@NonNull View view,ColorBox box){
+    public static void insertSkinBox(@NonNull View view, ColorBox box){
         view.setTag(NIGHT_OWL_VIEW_TAG, box);
     }
 
@@ -45,6 +46,18 @@ public class NightOwlUtil {
             return (ColorBox) box;
         } else {
             Log.e(TAG, "wtf, NIGHT_OWL_VIEW_TAG had been used by someone else.");
+        }
+        return null;
+    }
+
+    public static void insertObservable(@NonNull View view, OwlObservable owlObservable){
+        view.setTag(NIGHT_OWL_VIEW_TAG + 1,owlObservable);
+    }
+
+    public static OwlObservable obtainObservable(@NonNull View view){
+        Object observable = view.getTag(NIGHT_OWL_VIEW_TAG + 1);
+        if ( observable != null && observable instanceof OwlObservable ){
+            return (OwlObservable) observable;
         }
         return null;
     }

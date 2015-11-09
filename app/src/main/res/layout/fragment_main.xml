@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         tools:ignore="MissingPrefix" />
     <TextView
-        android:textAppearance="@style/MyTextAppearance"
+        android:textAppearance="@style/MyTextAppearance.Background"
         android:text="for textappearance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -55,6 +55,15 @@
         android:text="ashqal"
         android:textColor="#FFCC11"
         night:night_textColor="#dd0000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_background_color"
+        night:night_background="@drawable/selector_background_color_n"
+        tools:ignore="MissingPrefix" />
+
+    <Button
+        android:text="ashqal"
+        android:textAppearance="@style/MyTextAppearance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/selector_background_color"

@@ -4,6 +4,10 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="colorPrimary_n">#292b3e</color>
+    <color name="colorPrimaryDark_n">#000313</color>
+    <color name="colorAccent_n">#54021e</color>
+
     <color name="background_color_normal">#fff4cc</color>
     <color name="background_color_pressed">#FFCC11</color>
 

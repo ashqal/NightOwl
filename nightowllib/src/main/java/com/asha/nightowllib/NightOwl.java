@@ -1,6 +1,8 @@
 package com.asha.nightowllib;
 
 import android.app.Activity;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.ContextThemeWrapper;
@@ -12,14 +14,20 @@ import android.view.Window;
 import com.asha.nightowllib.handler.HandlerManager;
 import com.asha.nightowllib.handler.ISkinHandler;
 import com.asha.nightowllib.inflater.Factory4InjectedInflater;
+import com.asha.nightowllib.observer.OwlObservable;
+import com.asha.nightowllib.observer.impls.NavBarObserver;
+import com.asha.nightowllib.observer.impls.StatusBarObserver;
 import com.asha.nightowllib.paint.ColorBox;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.asha.nightowllib.NightOwlUtil.checkHandler;
 import static com.asha.nightowllib.NightOwlUtil.checkNonNull;
 import static com.asha.nightowllib.NightOwlUtil.checkViewCollected;
 import static com.asha.nightowllib.NightOwlUtil.injectLayoutInflater;
+import static com.asha.nightowllib.NightOwlUtil.insertObservable;
+import static com.asha.nightowllib.NightOwlUtil.obtainObservable;
 import static com.asha.nightowllib.NightOwlUtil.obtainSkinBox;
 import static com.asha.nightowllib.handler.HandlerManager.queryHandler;
 
@@ -32,6 +40,7 @@ public class NightOwl {
     private static final String WINDOW_INFLATER = "mLayoutInflater";
     private static final String THEME_INFLATER = "mInflater";
     private AtomicInteger mMode = new AtomicInteger(0);
+    private AtomicBoolean mWindowInited = new AtomicBoolean(false);
     private static NightOwl sInstance;
     static {
         NightOwlTable.init();
@@ -40,7 +49,7 @@ public class NightOwl {
     private NightOwl(){
     }
 
-    public static void inject(Activity activity){
+    public static void owlBeforeCreate(Activity activity){
         Window window = activity.getWindow();
         LayoutInflater layoutInflater = window.getLayoutInflater();
 
@@ -57,13 +66,40 @@ public class NightOwl {
                 , THEME_INFLATER);
     }
 
-    public static void refreshSkin(int mode, @NonNull Activity activity){
+    public static void owlAfterCreate(Activity activity){
+        View v = activity.getWindow().getDecorView();
+        OwlObservable owlObservable = new OwlObservable();
+        Resources.Theme theme = activity.getTheme();
+        TypedArray a = theme.obtainStyledAttributes(R.styleable.NightOwl_Theme);
+        if ( a != null ){
+            int n = a.getIndexCount();
+            for (int i = 0; i < n; i++) {
+                int attr = a.getIndex(i);
+                if ( attr == R.styleable.NightOwl_Theme_night_navigationBarColor ){
+                    owlObservable.registerObserver(new NavBarObserver(activity, a, attr));
+                } else if ( attr == R.styleable.NightOwl_Theme_night_statusBarColor ){
+                    owlObservable.registerObserver(new StatusBarObserver(activity, a, attr));
+                }
+            }
+            a.recycle();
+        }
+        insertObservable(v, owlObservable);
+        owlObservable.notifyObserver(sharedInstance().mMode.get(), activity);
+    }
+
+    public static void owlDressUp(int mode, @NonNull Activity activity){
+        // View tree
         NightOwl owl = sharedInstance();
         if ( owl.mMode.get() != mode ){
             View root = activity.getWindow().getDecorView();
             innerRefreshSkin( mode, root );
             owl.mMode.set(mode);
         }
+
+        // OwlObservable
+        View v = activity.getWindow().getDecorView();
+        OwlObservable observable = obtainObservable(v);
+        if ( observable != null ) observable.notifyObserver(mode,activity);
     }
 
     private static void innerRefreshSkin(int mode, View view){
@@ -82,7 +118,7 @@ public class NightOwl {
         }
     }
 
-    public static void registerViewClz(Class<View> clz){
+    protected static void registerViewClz(Class<View> clz){
         HandlerManager.registerView(clz);
     }
 
