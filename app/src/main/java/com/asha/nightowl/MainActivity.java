@@ -10,7 +10,7 @@ import com.asha.nightowllib.NightOwl;
 
 public class MainActivity extends DemoHelperActivity {
 
-    public static final int sDefualtMode = 0;
+    public static final int sDefualtMode = 1;
     private int mMode = sDefualtMode;
 
     @Override

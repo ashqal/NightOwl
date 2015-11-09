@@ -35,6 +35,11 @@ public class NightOwlUtil {
         return view.getTag( NIGHT_OWL_VIEW_TAG ) != null;
     }
 
+    public static boolean checkBeforeLollipop(){
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP) return true;
+        else return false;
+    }
+
     public static void insertSkinBox(@NonNull View view, ColorBox box){
         view.setTag(NIGHT_OWL_VIEW_TAG, box);
     }

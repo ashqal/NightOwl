@@ -22,6 +22,7 @@ import com.asha.nightowllib.paint.ColorBox;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static com.asha.nightowllib.NightOwlUtil.checkBeforeLollipop;
 import static com.asha.nightowllib.NightOwlUtil.checkHandler;
 import static com.asha.nightowllib.NightOwlUtil.checkNonNull;
 import static com.asha.nightowllib.NightOwlUtil.checkViewCollected;
@@ -67,6 +68,9 @@ public class NightOwl {
     }
 
     public static void owlAfterCreate(Activity activity){
+        // not support before lollipop.
+        if ( checkBeforeLollipop() ) return;
+
         View v = activity.getWindow().getDecorView();
         OwlObservable owlObservable = new OwlObservable();
         Resources.Theme theme = activity.getTheme();
@@ -84,6 +88,8 @@ public class NightOwl {
             a.recycle();
         }
         insertObservable(v, owlObservable);
+
+        // init set
         owlObservable.notifyObserver(sharedInstance().mMode.get(), activity);
     }
 
@@ -96,6 +102,8 @@ public class NightOwl {
             owl.mMode.set(mode);
         }
 
+        // not support before lollipop.
+        if ( checkBeforeLollipop() ) return;
         // OwlObservable
         View v = activity.getWindow().getDecorView();
         OwlObservable observable = obtainObservable(v);
