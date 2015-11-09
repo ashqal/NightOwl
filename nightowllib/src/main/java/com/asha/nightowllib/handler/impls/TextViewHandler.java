@@ -11,6 +11,6 @@ import com.asha.nightowllib.handler.annotations.OwlSysStyleable;
  * hzqiujiadi ashqalcn@gmail.com
  */
 @OwlSysStyleable("textAppearance")
-@OwlHandle(TextView.class)
+@OwlHandle({TextView.class})
 public class TextViewHandler extends AbsSkinHandler implements NightOwlTable.OwlTextView {
 }

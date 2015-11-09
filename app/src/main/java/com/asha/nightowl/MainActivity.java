@@ -1,6 +1,7 @@
 package com.asha.nightowl;
 
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
@@ -36,6 +37,20 @@ public class MainActivity extends DemoHelperActivity {
                 getSupportFragmentManager().beginTransaction()
                         .add(R.id.dh_main_container, fragment, "test")
                         .commit();
+            }
+        });
+        addButton("show dialog fragment", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment dialogFragment = MainDialogFragment.newInstance();
+                dialogFragment.show(getSupportFragmentManager(), "MainDialogFragment");
+            }
+        });
+
+        addButton("show dialog", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogHelper.show(MainActivity.this);
             }
         });
     }

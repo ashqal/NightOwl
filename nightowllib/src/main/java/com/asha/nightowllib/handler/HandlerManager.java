@@ -3,7 +3,6 @@ package com.asha.nightowllib.handler;
 import android.view.View;
 
 import com.asha.nightowllib.handler.annotations.OwlHandle;
-import com.asha.nightowllib.handler.impls.ViewHandler;
 
 import java.util.HashMap;
 
@@ -33,14 +32,22 @@ public class HandlerManager {
     public static void registerHandler(Class<? extends ISkinHandler> clz){
         OwlHandle owlHandle = clz.getAnnotation(OwlHandle.class);
         if ( owlHandle != null ){
-            Class<? extends View> key = owlHandle.value();
-            registerHandler(key,clz);
+            Class<? extends View>[] keys = owlHandle.value();
+            for ( Class<? extends View> key : keys )
+                registerHandler(key,clz);
         }
     }
 
     public static ISkinHandler queryHandler(Class clz) {
         Class<? extends ISkinHandler> handlerClz = sHandlerTable.get(clz);
-        if ( handlerClz == null ) handlerClz = ViewHandler.class;
+        // if handlerClz == null
+        // look for superclass's handlerClz
+        // it will be end when meet View.class
+        while( handlerClz == null ){
+            clz = clz.getSuperclass();
+            handlerClz = sHandlerTable.get(clz);
+        }
+        // query handler now
         ISkinHandler skinHandler = sHandlers.get(handlerClz);
         if ( skinHandler == null ) {
             skinHandler = newInstanceSafely(handlerClz);

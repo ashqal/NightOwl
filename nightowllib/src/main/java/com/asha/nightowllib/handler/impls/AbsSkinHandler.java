@@ -32,7 +32,7 @@ public abstract class AbsSkinHandler implements ISkinHandler {
 
     @Override
     public void collect(int mode, View view, Context context, AttributeSet attrs) {
-        //Log.d(TAG, String.format("collected %s %s %s", view, context, attrs));
+        Log.d(TAG, String.format("collected %s %s %s", view, context, attrs));
         ColorBox box = ColorBox.newInstance();
         onBeforeCollect(box);
 

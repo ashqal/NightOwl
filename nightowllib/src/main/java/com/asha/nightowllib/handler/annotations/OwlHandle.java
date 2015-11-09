@@ -14,5 +14,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface OwlHandle {
-    Class<? extends View> value();
+    Class<? extends View>[] value();
 }

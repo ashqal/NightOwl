@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:night="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/background_color_normal"
+    night:night_background="@color/background_color_n_normal"
+    android:layout_height="match_parent">
+    <TextView
+        android:text="this is a dialog!"
+        android:textAppearance="@style/MyTextAppearance"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
