@@ -9,9 +9,11 @@ import com.asha.nightowllib.NightOwl;
  * hzqiujiadi ashqalcn@gmail.com
  */
 public class MainApplication extends Application {
+    private static int sDefualtMode = 0;
+
     @Override
     public void onCreate() {
         super.onCreate();
-        NightOwl.builder().defualt(MainActivity.sDefualtMode).create();
+        NightOwl.builder().defualt(MainApplication.sDefualtMode).create();
     }
 }

@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#2bbcd7</color>
+    <color name="colorPrimaryDark">#1f96a9</color>
+    <color name="colorAccent">#f0fb00</color>
 
     <color name="colorPrimary_n">#292b3e</color>
     <color name="colorPrimaryDark_n">#000313</color>
     <color name="colorAccent_n">#54021e</color>
 
-    <color name="background_color_normal">#fff4cc</color>
-    <color name="background_color_pressed">#FFCC11</color>
+    <color name="foreground_color_normal">@android:color/transparent</color>
+    <color name="foreground_color_pressed">#22000000</color>
 
-    <color name="background_color_n_normal">#363f74</color>
-    <color name="background_color_n_pressed">#2d250a</color>
+    <color name="background_color_normal">#efefef</color>
+    <color name="background_color_pressed">#bebebe</color>
+
+    <color name="background_color_n_normal">#262626</color>
+    <color name="background_color_n_pressed">#565656</color>
 </resources>

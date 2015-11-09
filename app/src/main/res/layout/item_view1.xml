@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="15dp">
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:scaleType="centerCrop" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+            <TextView
+                android:id="@+id/title"
+                android:textAppearance="@style/TextPrimary"
+                android:layout_alignParentLeft="true"
+                android:text="Title With Style"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp" />
+            <TextView
+                android:textAppearance="@style/TextTip"
+                android:layout_alignParentRight="true"
+                android:text="2015-11-11"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp" />
+
+            <TextView
+                android:textAppearance="@style/TextSecondary"
+                android:layout_below="@id/title"
+                android:text="Armed with a super-suit with the astonishing ability to shrink in scale but increase in strength, Dr. Hank Pym, plan and pull off a heist that will save the world."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

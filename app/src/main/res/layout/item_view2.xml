@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="@drawable/selector_foreground_color"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
+    android:clickable="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:scaleType="centerCrop" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+            <TextView
+                android:id="@+id/title"
+                android:textAppearance="@style/TextPrimary"
+                android:layout_alignParentLeft="true"
+                android:text="Title With Style"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp" />
+            <TextView
+                android:textAppearance="@style/TextTip"
+                android:layout_alignParentRight="true"
+                android:text="2015-11-11"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp" />
+
+            <TextView
+                android:textAppearance="@style/TextSecondary"
+                android:layout_below="@id/title"
+                android:text="Armed with a super-suit with the astonishing ability to shrink in scale but increase in strength, Dr. Hank Pym, plan and pull off a heist that will save the world."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
