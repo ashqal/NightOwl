@@ -8,23 +8,23 @@ import android.util.SparseArray;
  * hzqiujiadi ashqalcn@gmail.com
  */
 public class OwlObservable {
-    private SparseArray<IOwlObserver> observers;
+    private SparseArray<IOwlObserverWithId> observers;
     public OwlObservable() {
         observers = new SparseArray<>();
     }
 
-    public void registerObserver( IOwlObserver owlObserver ){
+    public void registerObserver( IOwlObserverWithId owlObserver ){
         observers.put(owlObserver.getObserverId(),owlObserver);
     }
 
-    public void unregisterObserver( IOwlObserver owlObserver ){
+    public void unregisterObserver( IOwlObserverWithId owlObserver ){
         observers.delete(owlObserver.getObserverId());
     }
 
     public void notifyObserver(int mode, Activity activity){
         int size = observers.size();
         for (int i = 0; i < size; i++) {
-            IOwlObserver owlObserver = observers.valueAt(i);
+            IOwlObserverWithId owlObserver = observers.valueAt(i);
             owlObserver.onSkinChange(mode, activity);
         }
     }

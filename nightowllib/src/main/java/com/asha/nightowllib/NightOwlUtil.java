@@ -44,11 +44,17 @@ public class NightOwlUtil {
         view.setTag(NIGHT_OWL_VIEW_TAG, box);
     }
 
+    public static void insertEmptyBox(@NonNull View view){
+        view.setTag(NIGHT_OWL_VIEW_TAG, true);
+    }
+
     public static ColorBox obtainSkinBox(@NonNull View view){
         Object box = view.getTag(NIGHT_OWL_VIEW_TAG);
         checkNonNull(box,"wtf, it can't be null.");
         if ( box instanceof ColorBox ){
             return (ColorBox) box;
+        } else if ( box instanceof Boolean ) {
+            return null;
         } else {
             Log.e(TAG, "wtf, NIGHT_OWL_VIEW_TAG had been used by someone else.");
         }

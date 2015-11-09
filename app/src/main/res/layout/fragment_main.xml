@@ -8,6 +8,18 @@
     android:layout_marginTop="1dp"
     android:layout_marginBottom="1dp"
     android:background="#cbfff6">
+    <com.asha.nightowl.CustomView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="@drawable/selector_background_color"
+        night:night_background="@drawable/selector_background_color_n"
+        />
+    <com.asha.nightowl.CustomView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        />
     <View
         android:background="@drawable/selector_background_color"
         night:night_background="@drawable/selector_background_color_n"

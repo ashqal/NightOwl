@@ -14,6 +14,7 @@ import android.view.Window;
 import com.asha.nightowllib.handler.HandlerManager;
 import com.asha.nightowllib.handler.ISkinHandler;
 import com.asha.nightowllib.inflater.Factory4InjectedInflater;
+import com.asha.nightowllib.observer.IOwlObserver;
 import com.asha.nightowllib.observer.OwlObservable;
 import com.asha.nightowllib.observer.impls.NavBarObserver;
 import com.asha.nightowllib.observer.impls.StatusBarObserver;
@@ -27,6 +28,7 @@ import static com.asha.nightowllib.NightOwlUtil.checkHandler;
 import static com.asha.nightowllib.NightOwlUtil.checkNonNull;
 import static com.asha.nightowllib.NightOwlUtil.checkViewCollected;
 import static com.asha.nightowllib.NightOwlUtil.injectLayoutInflater;
+import static com.asha.nightowllib.NightOwlUtil.insertEmptyBox;
 import static com.asha.nightowllib.NightOwlUtil.insertObservable;
 import static com.asha.nightowllib.NightOwlUtil.obtainObservable;
 import static com.asha.nightowllib.NightOwlUtil.obtainSkinBox;
@@ -98,7 +100,7 @@ public class NightOwl {
         NightOwl owl = sharedInstance();
         if ( owl.mMode.get() != mode ){
             View root = activity.getWindow().getDecorView();
-            innerRefreshSkin( mode, root );
+            innerRefreshSkin( mode, root, activity);
             owl.mMode.set(mode);
         }
 
@@ -107,13 +109,16 @@ public class NightOwl {
         // OwlObservable
         View v = activity.getWindow().getDecorView();
         OwlObservable observable = obtainObservable(v);
-        if ( observable != null ) observable.notifyObserver(mode,activity);
+        if ( observable != null ) observable.notifyObserver(mode, activity);
     }
 
-    private static void innerRefreshSkin(int mode, View view){
+    private static void innerRefreshSkin(int mode, View view , Activity activity){
         if ( checkViewCollected(view) ){
             ColorBox box = obtainSkinBox(view);
             if ( box != null ) box.refreshSkin(mode, view);
+            if ( view instanceof IOwlObserver ){
+                ((IOwlObserver) view).onSkinChange(mode,activity);
+            }
         }
 
         if ( view instanceof ViewGroup){
@@ -121,7 +126,7 @@ public class NightOwl {
             View sub;
             for (int i = 0; i < vg.getChildCount(); i++) {
                 sub = vg.getChildAt(i);
-                innerRefreshSkin(mode, sub);
+                innerRefreshSkin(mode, sub, activity);
             }
         }
     }
@@ -139,8 +144,21 @@ public class NightOwl {
         if ( !checkHandler(handler,view) ) return;
 
         NightOwl owl = sharedInstance();
+
+        int mode = owl.mMode.get();
+
         // do collect
         handler.collect(owl.mMode.get(), view, view.getContext(), attrs);
+
+        // if view is instanceof IOwlObserver
+        // and not be collected
+        if ( view instanceof IOwlObserver ){
+            if (  !checkViewCollected(view) ) insertEmptyBox(view);
+            // we can't get the activity here
+            // beacuse the view.getContext may return ContextThemeWrapper
+            // so we call with null
+            ((IOwlObserver) view).onSkinChange( mode, null );
+        }
     }
 
     private static NightOwl sharedInstance(){
