@@ -43,6 +43,12 @@
         android:layout_height="wrap_content"
         tools:ignore="MissingPrefix" />
     <TextView
+        android:textAppearance="@style/MyTextAppearance.Background.Alpha"
+        android:text="for textappearance with Alpha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingPrefix" />
+    <TextView
         android:textColor="#FFCC11"
         night:night_textColor="#dd0000"
         android:text="for attr"
@@ -50,6 +56,17 @@
         android:layout_height="wrap_content"
         android:background="@drawable/selector_background_color"
         night:night_background="@drawable/selector_background_color_n"
+        tools:ignore="MissingPrefix" />
+    <TextView
+        android:textColor="#FFCC11"
+        night:night_textColor="#dd0000"
+        android:text="for attr alpha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_background_color"
+        night:night_background="@drawable/selector_background_color_n"
+        android:alpha="1"
+        night:night_alpha="0.5"
         tools:ignore="MissingPrefix" />
     <Button
         android:text="ashqal"

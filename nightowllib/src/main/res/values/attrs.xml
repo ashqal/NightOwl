@@ -3,6 +3,7 @@
 
     <declare-styleable name="NightOwl_View">
         <attr name="night_background" format="color|reference" />
+        <attr name="night_alpha" format="float" />
     </declare-styleable>
 
     <declare-styleable name="NightOwl_TextView">

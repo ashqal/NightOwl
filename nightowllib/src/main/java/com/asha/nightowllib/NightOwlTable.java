@@ -8,6 +8,7 @@ import com.asha.nightowllib.handler.impls.ButtonHandler;
 import com.asha.nightowllib.handler.impls.TextViewHandler;
 import com.asha.nightowllib.handler.impls.ViewHandler;
 import com.asha.nightowllib.paint.imps.ActionbarContainerBgPaint;
+import com.asha.nightowllib.paint.imps.AlphaPaint;
 import com.asha.nightowllib.paint.imps.BackgroundPaint;
 import com.asha.nightowllib.paint.imps.TextColorPaint;
 
@@ -28,6 +29,7 @@ public class NightOwlTable {
     @OwlAttrScope(2000) public interface OwlView {
         @OwlStyleable int[] NightOwl_View = R.styleable.NightOwl_View;
         @OwlAttr(BackgroundPaint.class) int NightOwl_View_night_background = R.styleable.NightOwl_View_night_background;
+        @OwlAttr(AlphaPaint.class) int NightOwl_View_night_alpha = R.styleable.NightOwl_View_night_alpha;
     }
 
     @OwlAttrScope(3000) public interface OwlTextView extends NightOwlTable.OwlView {
