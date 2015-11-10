@@ -3,8 +3,8 @@
     xmlns:night="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@color/background_color_normal"
-    night:night_background="@color/background_color_n_normal"
+    android:background="@color/background_color"
+    night:night_background="@color/background_color_n"
     android:layout_height="match_parent">
     <TextView
         android:text="this is a dialog!"

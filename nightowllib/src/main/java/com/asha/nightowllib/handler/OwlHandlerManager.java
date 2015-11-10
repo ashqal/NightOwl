@@ -2,6 +2,7 @@ package com.asha.nightowllib.handler;
 
 import android.view.View;
 
+import com.asha.nightowllib.handler.ISkinHandler;
 import com.asha.nightowllib.handler.annotations.OwlHandle;
 
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import static com.asha.nightowllib.NightOwlUtil.newInstanceSafely;
  * Created by hzqiujiadi on 15/11/8.
  * hzqiujiadi ashqalcn@gmail.com
  */
-public class HandlerManager {
+public class OwlHandlerManager {
     private static HashMap<Class,ISkinHandler> sHandlers = new HashMap<>();
     private static HashMap<Class,Class<? extends ISkinHandler>> sHandlerTable = new HashMap<>();
 

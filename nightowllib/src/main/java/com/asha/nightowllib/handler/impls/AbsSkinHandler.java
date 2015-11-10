@@ -87,7 +87,7 @@ public abstract class AbsSkinHandler implements ISkinHandler {
             // look for attr
             IOwlPaint paint = queryPaint(attr+scope);
             if ( paint == null) {
-                Log.e(TAG, "Can't find paint of " + attr); continue; }
+                Log.d(TAG, "Can't find paint of attr:" + attr + " scope:" + scope); continue; }
             paint.setup(view,a,attr,scope,box);
         }
     }

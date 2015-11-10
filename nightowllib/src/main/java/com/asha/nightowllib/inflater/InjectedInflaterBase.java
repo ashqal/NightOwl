@@ -6,8 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.asha.nightowllib.NightOwl;
+import com.asha.nightowllib.handler.ISkinHandler;
+import com.asha.nightowllib.observer.IOwlObserver;
 
 import java.lang.reflect.Field;
+
+import static com.asha.nightowllib.NightOwlUtil.checkHandler;
+import static com.asha.nightowllib.NightOwlUtil.checkViewCollected;
+import static com.asha.nightowllib.NightOwlUtil.insertEmptyTag;
+import static com.asha.nightowllib.handler.OwlHandlerManager.queryHandler;
 
 /**
  * Created by hzqiujiadi on 15/11/6.
@@ -80,7 +87,29 @@ public class InjectedInflaterBase extends LayoutInflater {
 
     public static void handleOnCreateView(View view,String name,AttributeSet attrs){
         if ( view == null ) return;
-        NightOwl.handleViewCreated(view,attrs);
+        // check the view has been collected
+        if ( checkViewCollected(view) ) return;
+
+        // query the handler
+        ISkinHandler handler = queryHandler(view.getClass());
+        if ( !checkHandler(handler,view) ) return;
+
+        int mode = NightOwl.owlCurrentMode();
+
+        // do collect
+        handler.collect(mode, view, view.getContext(), attrs);
+
+        // if view is instanceof IOwlObserver
+        // and not be collected
+        if ( view instanceof IOwlObserver){
+            // insert tag
+            if (  !checkViewCollected(view) ) insertEmptyTag(view);
+
+            // we can't get the activity here
+            // beacuse the view.getContext may return ContextThemeWrapper
+            // so we call with null
+            ((IOwlObserver) view).onSkinChange( mode, null );
+        }
     }
 
 }

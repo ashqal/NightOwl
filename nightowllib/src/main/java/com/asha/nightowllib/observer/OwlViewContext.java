@@ -7,9 +7,10 @@ import android.util.SparseArray;
  * Created by hzqiujiadi on 15/11/9.
  * hzqiujiadi ashqalcn@gmail.com
  */
-public class OwlObservable {
+public class OwlViewContext {
+    private int mLastMode = -1;
     private SparseArray<IOwlObserverWithId> observers;
-    public OwlObservable() {
+    public OwlViewContext() {
         observers = new SparseArray<>();
     }
 
@@ -22,10 +23,16 @@ public class OwlObservable {
     }
 
     public void notifyObserver(int mode, Activity activity){
+        if ( mode == mLastMode ) return;
+        mLastMode = mode;
         int size = observers.size();
         for (int i = 0; i < size; i++) {
             IOwlObserverWithId owlObserver = observers.valueAt(i);
             owlObserver.onSkinChange(mode, activity);
         }
+    }
+
+    public boolean needSync( int target ){
+        return mLastMode != target;
     }
 }

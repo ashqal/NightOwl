@@ -26,6 +26,6 @@ public class MainFragment extends Fragment {
         CustomView customView = new CustomView(getActivity());
         vp.addView(customView,ViewGroup.LayoutParams.MATCH_PARENT,160);
 
-        NightOwl.owlRegView(customView);
+        NightOwl.owlRegisterView(customView);
     }
 }

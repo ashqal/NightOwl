@@ -3,13 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:night="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
+    android:background="@color/background_color"
+    night:night_background="@color/background_color_n"
     tools:context="com.asha.nightowl.SettingActivity">
     <ImageButton
         android:id="@+id/button"
         android:src="@drawable/iconfont_mianxingtubiaorijian"
+        night:night_src="@drawable/iconfont_yejianmoshi"
         android:layout_centerInParent="true"
-        android:foreground="@drawable/selector_foreground_color"
+        android:background="@drawable/selector_background_color"
+        night:night_background="@drawable/selector_background_color_n"
         android:layout_width="256dp"
-        android:layout_height="256dp" />
+        android:layout_height="256dp"
+        tools:ignore="MissingPrefix" />
 </RelativeLayout>

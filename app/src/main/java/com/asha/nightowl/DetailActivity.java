@@ -33,6 +33,12 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        NightOwl.owlResume(this);
+    }
+
     public static void launch(Context context){
         Intent i = new Intent(context,DetailActivity.class);
         context.startActivity(i);

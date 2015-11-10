@@ -64,14 +64,17 @@
 
     <style name="TextPrimary" parent="TextAppearance.AppCompat.Title">
         <item name="android:textColor">#FF000000</item>
+        <item name="night_textColor">#4d4d4d</item>
     </style>
 
     <style name="TextSecondary" parent="TextAppearance.AppCompat.Medium">
         <item name="android:textColor">#FF777777</item>
+        <item name="night_textColor">#353535</item>
     </style>
 
     <style name="TextTip" parent="TextAppearance.AppCompat.Small">
         <item name="android:textColor">#FFcccccc</item>
+        <item name="night_textColor">#333333</item>
     </style>
 
 </resources>

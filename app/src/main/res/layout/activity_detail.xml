@@ -31,7 +31,26 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_detail" />
+    <android.support.v4.widget.NestedScrollView
+        xmlns:night="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_color"
+        night:night_background="@color/background_color_n"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.asha.nightowl.DetailActivity"
+        tools:showIn="@layout/activity_detail">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextSecondary"
+            android:text="@string/large_text"
+            android:layout_margin="16dp"
+            android:paddingBottom="96dp"
+            />
+
+    </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

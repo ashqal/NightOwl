@@ -1,11 +1,10 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:night="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/listview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
+    night:night_background="@color/background_color_n"
     tools:context=".fragments.ListViewFragment">
-    <ListView
-        android:id="@+id/listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
-</FrameLayout>
+</ListView>

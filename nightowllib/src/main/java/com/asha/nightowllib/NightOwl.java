@@ -4,33 +4,27 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
-import android.util.AttributeSet;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
-import com.asha.nightowllib.handler.ISkinHandler;
 import com.asha.nightowllib.inflater.Factory4InjectedInflater;
 import com.asha.nightowllib.observer.IOwlObserver;
-import com.asha.nightowllib.observer.OwlObservable;
-import com.asha.nightowllib.observer.impls.NavBarObserver;
-import com.asha.nightowllib.observer.impls.StatusBarObserver;
+import com.asha.nightowllib.observer.OwlViewContext;
 import com.asha.nightowllib.paint.ColorBox;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.asha.nightowllib.NightOwlUtil.checkBeforeLollipop;
-import static com.asha.nightowllib.NightOwlUtil.checkHandler;
 import static com.asha.nightowllib.NightOwlUtil.checkNonNull;
 import static com.asha.nightowllib.NightOwlUtil.checkViewCollected;
 import static com.asha.nightowllib.NightOwlUtil.injectLayoutInflater;
-import static com.asha.nightowllib.NightOwlUtil.insertEmptyBox;
-import static com.asha.nightowllib.NightOwlUtil.insertObservable;
-import static com.asha.nightowllib.NightOwlUtil.obtainObservable;
+import static com.asha.nightowllib.NightOwlUtil.insertEmptyTag;
+import static com.asha.nightowllib.NightOwlUtil.insertViewContext;
 import static com.asha.nightowllib.NightOwlUtil.obtainSkinBox;
-import static com.asha.nightowllib.handler.HandlerManager.queryHandler;
+import static com.asha.nightowllib.NightOwlUtil.obtainViewContext;
 
 /**
  * Created by hzqiujiadi on 15/11/5.
@@ -53,6 +47,7 @@ public class NightOwl {
         Window window = activity.getWindow();
         LayoutInflater layoutInflater = window.getLayoutInflater();
 
+
         LayoutInflater injectLayoutInflater1 = Factory4InjectedInflater.newInstance(layoutInflater, activity);
         injectLayoutInflater(injectLayoutInflater1
                 , activity.getWindow()
@@ -64,49 +59,71 @@ public class NightOwl {
                 , activity
                 , ContextThemeWrapper.class
                 , THEME_INFLATER);
+
+        View v = activity.getWindow().getDecorView();
+        OwlViewContext owlObservable = new OwlViewContext();
+        insertViewContext(v, owlObservable);
+
     }
+
 
     public static void owlAfterCreate(Activity activity){
-        // not support before lollipop.
-        if ( checkBeforeLollipop() ) return;
+        View root = activity.getWindow().getDecorView();
+        OwlViewContext viewContext = obtainViewContext(root);
+        checkNonNull(viewContext, "OwlViewContext can not be null!");
 
-        View v = activity.getWindow().getDecorView();
-        OwlObservable owlObservable = new OwlObservable();
-        Resources.Theme theme = activity.getTheme();
-        TypedArray a = theme.obtainStyledAttributes(R.styleable.NightOwl_Theme);
-        if ( a != null ){
-            int n = a.getIndexCount();
-            for (int i = 0; i < n; i++) {
-                int attr = a.getIndex(i);
-                if ( attr == R.styleable.NightOwl_Theme_night_navigationBarColor ){
-                    owlObservable.registerObserver(new NavBarObserver(activity, a, attr));
-                } else if ( attr == R.styleable.NightOwl_Theme_night_statusBarColor ){
-                    owlObservable.registerObserver(new StatusBarObserver(activity, a, attr));
+        // not support before lollipop.
+        if ( !checkBeforeLollipop() ){
+            Resources.Theme theme = activity.getTheme();
+            TypedArray a = theme.obtainStyledAttributes(R.styleable.NightOwl_Theme);
+            if ( a != null ){
+                int n = a.getIndexCount();
+                for (int i = 0; i < n; i++) {
+                    int attr = a.getIndex(i);
+                    if ( attr == R.styleable.NightOwl_Theme_night_navigationBarColor ){
+                        //viewContext.registerObserver(new NavBarObserver(activity, a, attr));
+                    } else if ( attr == R.styleable.NightOwl_Theme_night_statusBarColor ){
+                        //viewContext.registerObserver(new StatusBarObserver(activity, a, attr));
+                    }
                 }
+                a.recycle();
             }
-            a.recycle();
         }
-        insertObservable(v, owlObservable);
 
         // init set
-        owlObservable.notifyObserver(sharedInstance().mMode.get(), activity);
+        viewContext.notifyObserver(sharedInstance().mMode.get(), activity);
     }
 
-    public static void owlDressUp(int mode, @NonNull Activity activity){
+    public static void owlResume( Activity activity ){
+        NightOwl nightOwl = sharedInstance();
+        int targetMode = nightOwl.mMode.get();
+
+        owlDressUp(targetMode,activity);
+    }
+
+    public static void owlNewDress( @NonNull Activity activity ) {
+        int current = owlCurrentMode() + 1;
+        current %= 2;
+
+        owlDressUp(current, activity);
+    }
+
+    private static void owlDressUp( int mode, @NonNull Activity activity ){
         // View tree
         NightOwl owl = sharedInstance();
-        if ( owl.mMode.get() != mode ){
-            View root = activity.getWindow().getDecorView();
-            innerRefreshSkin( mode, root, activity);
-            owl.mMode.set(mode);
+        View root = activity.getWindow().getDecorView();
+        OwlViewContext viewContext = obtainViewContext(root);
+        checkNonNull(viewContext, "OwlViewContext can not be null!");
+
+        if ( viewContext.needSync(mode) ){
+            // refresh skin
+            innerRefreshSkin(mode, root, activity);
+
+            // OwlObserver
+            viewContext.notifyObserver(mode, activity);
         }
 
-        // not support before lollipop.
-        if ( checkBeforeLollipop() ) return;
-        // OwlObservable
-        View v = activity.getWindow().getDecorView();
-        OwlObservable observable = obtainObservable(v);
-        if ( observable != null ) observable.notifyObserver(mode, activity);
+        owl.mMode.set(mode);
     }
 
     /**
@@ -115,10 +132,10 @@ public class NightOwl {
      * @param view instanceof IOwlObserver & View
      *             NightOwl will trigger view.onSkinChange immediately.
      */
-    public static void owlRegView( @NonNull IOwlObserver view ){
+    public static void owlRegisterView( @NonNull IOwlObserver view ){
         if ( view instanceof View ) {
             View target = (View) view;
-            insertEmptyBox(target);
+            insertEmptyTag(target);
             view.onSkinChange(owlCurrentMode(), null);
         } else {
             throw new IllegalArgumentException("owlAttach param must be a instance of View");
@@ -127,6 +144,10 @@ public class NightOwl {
 
     public static int owlCurrentMode(){
         return sharedInstance().mMode.get();
+    }
+
+    private static void owlRegisterViewClz(Class<? extends View> clz){
+        //HandlerManager.registerView(clz);
     }
 
     private static void innerRefreshSkin(int mode, View view , Activity activity){
@@ -146,36 +167,6 @@ public class NightOwl {
                 sub = vg.getChildAt(i);
                 innerRefreshSkin(mode, sub, activity);
             }
-        }
-    }
-
-    private static void owlRegViewClz(Class<? extends View> clz){
-        //HandlerManager.registerView(clz);
-    }
-
-    public static void handleViewCreated(@NonNull View view, @NonNull AttributeSet attrs) {
-        // check the view has been collected
-        if ( checkViewCollected(view) ) return;
-
-        // query the handler
-        ISkinHandler handler = queryHandler(view.getClass());
-        if ( !checkHandler(handler,view) ) return;
-
-        NightOwl owl = sharedInstance();
-
-        int mode = owl.mMode.get();
-
-        // do collect
-        handler.collect(owl.mMode.get(), view, view.getContext(), attrs);
-
-        // if view is instanceof IOwlObserver
-        // and not be collected
-        if ( view instanceof IOwlObserver ){
-            if (  !checkViewCollected(view) ) insertEmptyBox(view);
-            // we can't get the activity here
-            // beacuse the view.getContext may return ContextThemeWrapper
-            // so we call with null
-            ((IOwlObserver) view).onSkinChange( mode, null );
         }
     }
 

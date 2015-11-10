@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.asha.nightowllib.handler.ISkinHandler;
-import com.asha.nightowllib.observer.OwlObservable;
+import com.asha.nightowllib.observer.OwlViewContext;
 import com.asha.nightowllib.paint.ColorBox;
 
 import java.lang.reflect.Field;
@@ -18,6 +18,7 @@ import java.lang.reflect.Field;
 public class NightOwlUtil {
     public static final int NIGHT_OWL_VIEW_TAG = (2 << 24) | (1 << 23);
     private static final String TAG = "NightOwlUtil";
+    private static final Boolean EMPTY_TAG = true;
 
     public static void checkNonNull(Object obj,String msg){
         if ( obj == null ) throw new NullPointerException(msg);
@@ -44,8 +45,8 @@ public class NightOwlUtil {
         view.setTag(NIGHT_OWL_VIEW_TAG, box);
     }
 
-    public static void insertEmptyBox(@NonNull View view){
-        view.setTag(NIGHT_OWL_VIEW_TAG, true);
+    public static void insertEmptyTag(@NonNull View view){
+        view.setTag(NIGHT_OWL_VIEW_TAG, EMPTY_TAG);
     }
 
     public static ColorBox obtainSkinBox(@NonNull View view){
@@ -53,7 +54,8 @@ public class NightOwlUtil {
         checkNonNull(box,"wtf, it can't be null.");
         if ( box instanceof ColorBox ){
             return (ColorBox) box;
-        } else if ( box instanceof Boolean ) {
+        } else if ( box.equals(EMPTY_TAG) ) {
+            Log.e(TAG, "wtf, EMPTY_TAG...!!");
             return null;
         } else {
             Log.e(TAG, "wtf, NIGHT_OWL_VIEW_TAG had been used by someone else.");
@@ -61,14 +63,14 @@ public class NightOwlUtil {
         return null;
     }
 
-    public static void insertObservable(@NonNull View view, OwlObservable owlObservable){
-        view.setTag(NIGHT_OWL_VIEW_TAG + 1,owlObservable);
+    public static void insertViewContext(@NonNull View view, OwlViewContext viewContext){
+        view.setTag(NIGHT_OWL_VIEW_TAG + 1,viewContext);
     }
 
-    public static OwlObservable obtainObservable(@NonNull View view){
+    public static OwlViewContext obtainViewContext(@NonNull View view){
         Object observable = view.getTag(NIGHT_OWL_VIEW_TAG + 1);
-        if ( observable != null && observable instanceof OwlObservable ){
-            return (OwlObservable) observable;
+        if ( observable != null && observable instanceof OwlViewContext){
+            return (OwlViewContext) observable;
         }
         return null;
     }

@@ -11,10 +11,11 @@
         <attr name="night_textColorHint" format="color|reference" />
     </declare-styleable>
 
+    <declare-styleable name="NightOwl_ImageView">
+        <attr name="night_src" format="reference" />
+    </declare-styleable>
+
     <declare-styleable name="NightOwl_Theme">
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorAccent">@color/colorAccent</item>-->
         <attr name="night_colorPrimary" format="color|reference"/>
         <attr name="night_colorPrimaryDark" format="color|reference"/>
         <attr name="night_colorAccent" format="color|reference"/>

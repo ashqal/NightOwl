@@ -4,9 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:text="@string/hello_blank_fragment"
-    android:background="@color/background_color_normal"
+    android:background="@color/background_color"
+    night:night_background="@color/background_color_n"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
     android:clipToPadding="false"
-    />
+    xmlns:night="http://schemas.android.com/apk/res-auto" />

@@ -15,9 +15,12 @@
     <color name="foreground_color_normal">@android:color/transparent</color>
     <color name="foreground_color_pressed">#22000000</color>
 
-    <color name="background_color_normal">#efefef</color>
-    <color name="background_color_pressed">#bebebe</color>
+    <color name="background_color">#efefef</color>
+    <color name="background_color_n">#020202</color>
 
-    <color name="background_color_n_normal">#262626</color>
-    <color name="background_color_n_pressed">#565656</color>
+    <color name="content_background_color">#fafafa</color>
+    <color name="content_background_color_n">#131313</color>
+
+    <color name="background_color_pressed">#cccccc</color>
+    <color name="background_color_n_pressed">#222a58</color>
 </resources>
