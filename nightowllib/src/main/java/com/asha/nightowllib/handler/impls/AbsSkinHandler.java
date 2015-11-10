@@ -34,7 +34,7 @@ public abstract class AbsSkinHandler implements ISkinHandler {
     public void collect(int mode, View view, Context context, AttributeSet attrs) {
         Log.d(TAG, String.format("collected %s %s %s", view, context, attrs));
         ColorBox box = ColorBox.newInstance();
-        onBeforeCollect(box);
+        onBeforeCollect(view,context,attrs,box);
 
         final Resources.Theme theme = context.getTheme();
         int systemStyleResId = 0;
@@ -68,7 +68,7 @@ public abstract class AbsSkinHandler implements ISkinHandler {
             }
         }
 
-        onAfterCollect(box);
+        onAfterCollect(view,context,attrs,box);
         insertSkinBox(view, box);
 
         // first refresh
@@ -92,9 +92,9 @@ public abstract class AbsSkinHandler implements ISkinHandler {
         }
     }
 
-    protected void onBeforeCollect(ColorBox box){}
+    protected void onBeforeCollect(View view, Context context, AttributeSet attrs, ColorBox box){}
 
-    protected void onAfterCollect(ColorBox box){}
+    protected void onAfterCollect(View view, Context context, AttributeSet attrs, ColorBox box){}
 
     @Override
     final public void onSkinChanged(int skin, View view) {

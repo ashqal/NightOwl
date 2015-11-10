@@ -8,19 +8,25 @@
     <color name="colorPrimaryDark2">#3040a2</color>
     <color name="colorAccent2">#fc4182</color>
 
-    <color name="colorPrimary_n">#292b3e</color>
-    <color name="colorPrimaryDark_n">#000313</color>
-    <color name="colorAccent_n">#54021e</color>
+    <color name="colorPrimary_n">#111111</color>
+    <color name="colorPrimaryDark_n">#000000</color>
+    <color name="colorAccent_n">#334869</color>
 
     <color name="foreground_color_normal">@android:color/transparent</color>
     <color name="foreground_color_pressed">#22000000</color>
 
     <color name="background_color">#efefef</color>
-    <color name="background_color_n">#020202</color>
+    <color name="background_color_n">#222222</color>
 
     <color name="content_background_color">#fafafa</color>
-    <color name="content_background_color_n">#131313</color>
+    <color name="content_background_color_n">#111111</color>
 
     <color name="background_color_pressed">#cccccc</color>
     <color name="background_color_n_pressed">#222a58</color>
+
+    <color name="tablayout_text_color">#cccccc</color>
+    <color name="tablayout_text_color_selected">#ffffff</color>
+    <color name="tablayout_text_color_n">#333333</color>
+    <color name="tablayout_text_color_selected_n">#777777</color>
+
 </resources>

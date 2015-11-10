@@ -33,12 +33,17 @@ public class RecyclerViewFragment extends Fragment {
 
     public RecyclerViewFragment() {
     }
-
+    RecyclerView recyclerView;
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(new DemoAdapter());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override

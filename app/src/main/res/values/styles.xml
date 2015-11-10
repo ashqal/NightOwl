@@ -6,17 +6,14 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark
-        </item>
-        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark
-        </item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark</item>
 
         <item name="night_colorPrimary">@color/colorPrimary_n</item>
         <item name="night_colorPrimaryDark">@color/colorPrimaryDark_n</item>
         <item name="night_colorAccent">@color/colorAccent_n</item>
-        <item name="night_navigationBarColor" tools:targetApi="lollipop">@color/colorPrimary_n
-        </item>
-        <item name="night_statusBarColor" tools:targetApi="lollipop">@color/colorAccent_n</item>
+        <item name="night_navigationBarColor" tools:targetApi="lollipop">@color/colorPrimary_n</item>
+        <item name="night_statusBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark_n</item>
 
         <!--<item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>-->
     </style>

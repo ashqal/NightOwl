@@ -10,10 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
+import com.asha.nightowllib.handler.ISkinHandler;
+import com.asha.nightowllib.handler.OwlHandlerManager;
 import com.asha.nightowllib.inflater.Factory4InjectedInflater;
 import com.asha.nightowllib.observer.IOwlObserver;
 import com.asha.nightowllib.observer.OwlViewContext;
+import com.asha.nightowllib.observer.impls.NavBarObserver;
+import com.asha.nightowllib.observer.impls.StatusBarObserver;
 import com.asha.nightowllib.paint.ColorBox;
+import com.asha.nightowllib.paint.OwlPaintManager;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -81,9 +86,9 @@ public class NightOwl {
                 for (int i = 0; i < n; i++) {
                     int attr = a.getIndex(i);
                     if ( attr == R.styleable.NightOwl_Theme_night_navigationBarColor ){
-                        //viewContext.registerObserver(new NavBarObserver(activity, a, attr));
+                        viewContext.registerObserver(new NavBarObserver(activity, a, attr));
                     } else if ( attr == R.styleable.NightOwl_Theme_night_statusBarColor ){
-                        //viewContext.registerObserver(new StatusBarObserver(activity, a, attr));
+                        viewContext.registerObserver(new StatusBarObserver(activity, a, attr));
                     }
                 }
                 a.recycle();
@@ -98,7 +103,7 @@ public class NightOwl {
         NightOwl nightOwl = sharedInstance();
         int targetMode = nightOwl.mMode.get();
 
-        owlDressUp(targetMode,activity);
+        owlDressUp(targetMode, activity);
     }
 
     public static void owlNewDress( @NonNull Activity activity ) {
@@ -106,6 +111,11 @@ public class NightOwl {
         current %= 2;
 
         owlDressUp(current, activity);
+    }
+
+    public static void owlRecyclerVHFix(View view){
+        int mode = owlCurrentMode();
+        innerRefreshSkin(mode, view);
     }
 
     private static void owlDressUp( int mode, @NonNull Activity activity ){
@@ -117,7 +127,7 @@ public class NightOwl {
 
         if ( viewContext.needSync(mode) ){
             // refresh skin
-            innerRefreshSkin(mode, root, activity);
+            innerRefreshSkin(mode, root);
 
             // OwlObserver
             viewContext.notifyObserver(mode, activity);
@@ -132,7 +142,7 @@ public class NightOwl {
      * @param view instanceof IOwlObserver & View
      *             NightOwl will trigger view.onSkinChange immediately.
      */
-    public static void owlRegisterView( @NonNull IOwlObserver view ){
+    public static void owlRegisterCustom(@NonNull IOwlObserver view){
         if ( view instanceof View ) {
             View target = (View) view;
             insertEmptyTag(target);
@@ -140,6 +150,11 @@ public class NightOwl {
         } else {
             throw new IllegalArgumentException("owlAttach param must be a instance of View");
         }
+    }
+
+    public static void owlRegisterHandler(Class<? extends ISkinHandler> clz, Class paintTable){
+        OwlHandlerManager.registerHandler(clz);
+        OwlPaintManager.registerPaint(paintTable);
     }
 
     public static int owlCurrentMode(){
@@ -150,13 +165,13 @@ public class NightOwl {
         //HandlerManager.registerView(clz);
     }
 
-    private static void innerRefreshSkin(int mode, View view , Activity activity){
+    private static void innerRefreshSkin(int mode, View view ){
         // refresh current view
         if ( checkViewCollected(view) ){
             ColorBox box = obtainSkinBox(view);
             if ( box != null ) box.refreshSkin(mode, view);
             if ( view instanceof IOwlObserver ){
-                ((IOwlObserver) view).onSkinChange(mode,activity);
+                ((IOwlObserver) view).onSkinChange(mode,null);
             }
         }
         // traversal view tree
@@ -165,7 +180,7 @@ public class NightOwl {
             View sub;
             for (int i = 0; i < vg.getChildCount(); i++) {
                 sub = vg.getChildAt(i);
-                innerRefreshSkin(mode, sub, activity);
+                innerRefreshSkin(mode, sub);
             }
         }
     }

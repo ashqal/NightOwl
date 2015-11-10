@@ -27,6 +27,10 @@ public class ColorBox {
         refreshSkin(mode,view);
     }
 
+    public Object[] get(int attr, int scope){
+        return mBox.get( attr + scope );
+    }
+
     public void refreshSkin(int mode, View view){
         if ( mMode != mode ){
             int size = mBox.size();
@@ -39,6 +43,11 @@ public class ColorBox {
         }
         mMode = mode;
     }
+
+    public int getMode() {
+        return mMode;
+    }
+
     public static ColorBox newInstance() {
         return new ColorBox();
     }

@@ -2,6 +2,8 @@ package com.asha.nightowl;
 
 import android.app.Application;
 
+import com.asha.nightowl.custom.OwlTabLayout;
+import com.asha.nightowl.custom.TabLayoutHandler;
 import com.asha.nightowllib.NightOwl;
 
 /**
@@ -15,5 +17,6 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
         NightOwl.builder().defualt(MainApplication.sDefualtMode).create();
+        NightOwl.owlRegisterHandler(TabLayoutHandler.class, OwlTabLayout.class);
     }
 }

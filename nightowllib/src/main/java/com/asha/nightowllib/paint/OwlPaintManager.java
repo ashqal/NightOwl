@@ -24,21 +24,25 @@ public class OwlPaintManager {
         // traverse all subclass.
         Class<?>[] classes = NightOwlTable.class.getDeclaredClasses();
         for ( Class subClz : classes ){
-            // look for all OwlAttrScope
-            OwlAttrScope owlAttrScope = (OwlAttrScope) subClz.getAnnotation(OwlAttrScope.class);
-            if ( owlAttrScope == null ) continue;
-            int scope = owlAttrScope.value();
+            registerPaint(subClz);
+        }
+    }
 
-            // traverse all declared fields in this subclass
-            Field[] fields = subClz.getDeclaredFields();
-            for (Field field : fields){
-                // look for all OwlAttr
-                OwlAttr attr = field.getAnnotation(OwlAttr.class);
-                if ( attr == null ) continue;
-                int attrId =  getStaticFieldIntSafely(field);
-                Class< ? extends IOwlPaint> targetClz = attr.value();
-                sPaints.append( attrId + scope,targetClz );
-            }
+    public static void registerPaint(Class subClz){
+        // look for all OwlAttrScope
+        OwlAttrScope owlAttrScope = (OwlAttrScope) subClz.getAnnotation(OwlAttrScope.class);
+        if ( owlAttrScope == null ) return;
+        int scope = owlAttrScope.value();
+
+        // traverse all declared fields in this subclass
+        Field[] fields = subClz.getDeclaredFields();
+        for (Field field : fields){
+            // look for all OwlAttr
+            OwlAttr attr = field.getAnnotation(OwlAttr.class);
+            if ( attr == null ) continue;
+            int attrId =  getStaticFieldIntSafely(field);
+            Class< ? extends IOwlPaint> targetClz = attr.value();
+            sPaints.append( attrId + scope,targetClz );
         }
     }
 

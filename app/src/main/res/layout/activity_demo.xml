@@ -23,6 +23,11 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
         <android.support.design.widget.TabLayout
             android:id="@+id/tabLayout"
+            app:tabTextColor="@color/tablayout_text_color"
+            app:tabSelectedTextColor="@color/tablayout_text_color_selected"
+            night:night_textColorSelector="@drawable/selector_tablayout_text_color_n"
+            app:tabIndicatorColor="@color/colorAccent"
+            night:night_tabIndicatorColor="@color/colorAccent_n"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </android.support.design.widget.TabLayout>
