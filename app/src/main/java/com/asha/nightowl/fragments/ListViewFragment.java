@@ -6,10 +6,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.asha.nightowl.DetailActivity;
 import com.asha.nightowl.R;
 
 import static com.asha.nightowl.DemoUtil.fetchFakeImage;
@@ -37,6 +39,12 @@ public class ListViewFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         ListView listView = (ListView) view.findViewById(R.id.listview);
         listView.setAdapter(new DemoAdapter());
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DetailActivity.launch(view.getContext());
+            }
+        });
     }
 
     @Override

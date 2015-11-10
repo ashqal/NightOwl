@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.asha.nightowl.DetailActivity;
 import com.asha.nightowl.R;
 
 import static com.asha.nightowl.DemoUtil.fetchFakeImage;
@@ -49,6 +50,12 @@ public class RecyclerViewFragment extends Fragment {
         ImageView mImageView;
         public VH(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DetailActivity.launch(v.getContext());
+                }
+            });
             mImageView = (ImageView) itemView.findViewById(R.id.image);
         }
         public void bind(int position){

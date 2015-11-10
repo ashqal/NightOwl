@@ -4,6 +4,10 @@
     <color name="colorPrimaryDark">#1f96a9</color>
     <color name="colorAccent">#f0fb00</color>
 
+    <color name="colorPrimary2">#4053b8</color>
+    <color name="colorPrimaryDark2">#3040a2</color>
+    <color name="colorAccent2">#fc4182</color>
+
     <color name="colorPrimary_n">#292b3e</color>
     <color name="colorPrimaryDark_n">#000313</color>
     <color name="colorAccent_n">#54021e</color>
