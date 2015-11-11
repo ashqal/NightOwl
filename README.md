@@ -1,7 +1,8 @@
 # NightOwl
-
+![Logo](https://raw.githubusercontent.com/ashqal/NightOwl/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
+</br>
 It is an experimental project for switching day/night mode on Andorid.
-![NightOwl Logo](https://raw.githubusercontent.com/ashqal/NightOwl/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
+
 
 ## Dependencies
 add nightowllib library to your project which rely on
