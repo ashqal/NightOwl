@@ -1,8 +1,6 @@
 package com.asha.nightowllib;
 
 import android.app.Activity;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -15,8 +13,6 @@ import com.asha.nightowllib.handler.OwlHandlerManager;
 import com.asha.nightowllib.inflater.Factory4InjectedInflater;
 import com.asha.nightowllib.observer.IOwlObserver;
 import com.asha.nightowllib.observer.OwlViewContext;
-import com.asha.nightowllib.observer.impls.NavBarObserver;
-import com.asha.nightowllib.observer.impls.StatusBarObserver;
 import com.asha.nightowllib.paint.ColorBox;
 import com.asha.nightowllib.paint.OwlPaintManager;
 
@@ -52,19 +48,21 @@ public class NightOwl {
         Window window = activity.getWindow();
         LayoutInflater layoutInflater = window.getLayoutInflater();
 
-
+        // replace the inflater in window
         LayoutInflater injectLayoutInflater1 = Factory4InjectedInflater.newInstance(layoutInflater, activity);
         injectLayoutInflater(injectLayoutInflater1
                 , activity.getWindow()
                 , activity.getWindow().getClass()
                 , WINDOW_INFLATER);
 
+        // replace the inflater in current ContextThemeWrapper
         LayoutInflater injectLayoutInflater2 = injectLayoutInflater1.cloneInContext(activity);
         injectLayoutInflater(injectLayoutInflater2
                 , activity
                 , ContextThemeWrapper.class
                 , THEME_INFLATER);
 
+        // insert owlViewContext into root view.
         View v = activity.getWindow().getDecorView();
         OwlViewContext owlObservable = new OwlViewContext();
         insertViewContext(v, owlObservable);
@@ -78,22 +76,7 @@ public class NightOwl {
         checkNonNull(viewContext, "OwlViewContext can not be null!");
 
         // not support before lollipop.
-        if ( !checkBeforeLollipop() ){
-            Resources.Theme theme = activity.getTheme();
-            TypedArray a = theme.obtainStyledAttributes(R.styleable.NightOwl_Theme);
-            if ( a != null ){
-                int n = a.getIndexCount();
-                for (int i = 0; i < n; i++) {
-                    int attr = a.getIndex(i);
-                    if ( attr == R.styleable.NightOwl_Theme_night_navigationBarColor ){
-                        viewContext.registerObserver(new NavBarObserver(activity, a, attr));
-                    } else if ( attr == R.styleable.NightOwl_Theme_night_statusBarColor ){
-                        viewContext.registerObserver(new StatusBarObserver(activity, a, attr));
-                    }
-                }
-                a.recycle();
-            }
-        }
+        if ( !checkBeforeLollipop() ) viewContext.setupWithCurrentActivity(activity);
 
         // init set
         viewContext.notifyObserver(sharedInstance().mMode.get(), activity);
@@ -113,7 +96,7 @@ public class NightOwl {
         owlDressUp(current, activity);
     }
 
-    public static void owlRecyclerVHFix(View view){
+    public static void owlRecyclerFix(View view){
         int mode = owlCurrentMode();
         innerRefreshSkin(mode, view);
     }
@@ -159,10 +142,6 @@ public class NightOwl {
 
     public static int owlCurrentMode(){
         return sharedInstance().mMode.get();
-    }
-
-    private static void owlRegisterViewClz(Class<? extends View> clz){
-        //HandlerManager.registerView(clz);
     }
 
     private static void innerRefreshSkin(int mode, View view ){

@@ -28,7 +28,7 @@ public class RecyclerViewFix extends RecyclerView {
 
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
-        NightOwl.owlRecyclerVHFix(child);
+        NightOwl.owlRecyclerFix(child);
         super.addView(child, index, params);
     }
 }

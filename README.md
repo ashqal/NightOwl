@@ -11,7 +11,11 @@ compile 'com.android.support:appcompat-v7:23.1.0'
 ```
 
 ## Setup
-this project need call three method in your Activity class, such as
+init the NightOwl in Application class, such as
+```java
+ NightOwl.builder().defualt(MainApplication.sDefualtMode).create();
+```
+then you need call three method in your Activity class, such as
 ```java
 public class DemoActivity extends AppCompatActivity {
     @Override
