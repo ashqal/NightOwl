@@ -4,4 +4,10 @@
         <attr name="night_textColorSelector" format="color|reference"/>
         <attr name="night_tabIndicatorColor" format="color|reference"/>
     </declare-styleable>
+    <declare-styleable name="NightOwl_Toolbar">
+        <attr name="night_titleTextColor" format="color|reference"/>
+    </declare-styleable>
+    <declare-styleable name="NightOwl_CollapsingToolbarLayout">
+        <attr name="night_contentScrim" format="color|reference"/>
+    </declare-styleable>
 </resources>

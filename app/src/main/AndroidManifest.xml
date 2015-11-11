@@ -24,7 +24,9 @@
             android:theme="@style/AppTheme.NoActionBar.Transparent" />
         <activity
             android:name=".SettingActivity"
-            android:label="@string/title_activity_setting">
+            android:label="@string/title_activity_setting"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
         </activity>
     </application>
 

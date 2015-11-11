@@ -5,6 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color"
-    night:night_background="@color/background_color_n"
+    night:night_background="@color/content_background_color_n"
     tools:context=".fragments.ListViewFragment">
 </ListView>

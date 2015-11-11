@@ -6,15 +6,15 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark</item>
-        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark</item>
-
         <item name="night_colorPrimary">@color/colorPrimary_n</item>
         <item name="night_colorPrimaryDark">@color/colorPrimaryDark_n</item>
         <item name="night_colorAccent">@color/colorAccent_n</item>
+
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark</item>
         <item name="night_navigationBarColor" tools:targetApi="lollipop">@color/colorPrimary_n</item>
         <item name="night_statusBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark_n</item>
-
+        <!--android:titleTextColor="@color/tablayout_text_color_selected"-->
         <!--<item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>-->
     </style>
 
@@ -55,9 +55,20 @@
         <item name="night_textColor">#fc575d</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="night_titleTextColor">@color/tablayout_text_color_selected_n</item>
+    </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.AppBarOverlay2" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark2</item>
+        <item name="night_statusBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark2_n</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:colorBackground">#333333</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="night_textColor">@color/tablayout_text_color_selected_n</item>
+    </style>
 
     <style name="TextPrimary" parent="TextAppearance.AppCompat.Title">
         <item name="android:textColor">#FF000000</item>

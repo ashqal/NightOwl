@@ -19,14 +19,13 @@ import com.asha.nightowllib.paint.IOwlPaint;
  * hzqiujiadi ashqalcn@gmail.com
  */
 @OwlHandle(TabLayout.class)
-public class TabLayoutHandler extends AbsSkinHandler implements OwlTabLayout {
+public class TabLayoutHandler extends AbsSkinHandler implements OwlCustomTable.OwlTabLayout {
 
-    public static final int TabLayoutScope = 10000;
     @Override
     protected void onAfterCollect(View view, Context context, AttributeSet attrs, ColorBox box) {
 
         Object[] objects = box.get(R.styleable.NightOwl_TabLayout_night_tabIndicatorColor
-                                , TabLayoutScope);
+                                , OwlCustomTable.TabLayoutScope);
         if ( objects != null ){
             // obtain color
             TypedArray a = context.obtainStyledAttributes(attrs, android.support.design.R.styleable.TabLayout,
@@ -36,7 +35,6 @@ public class TabLayoutHandler extends AbsSkinHandler implements OwlTabLayout {
                 objects[0] = color;
                 a.recycle();
             }
-
         }
     }
 

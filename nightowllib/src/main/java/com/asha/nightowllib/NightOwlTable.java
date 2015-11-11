@@ -3,12 +3,10 @@ package com.asha.nightowllib;
 import com.asha.nightowllib.handler.annotations.OwlAttr;
 import com.asha.nightowllib.handler.annotations.OwlAttrScope;
 import com.asha.nightowllib.handler.annotations.OwlStyleable;
-import com.asha.nightowllib.handler.impls.ActionBarContainerHandler;
 import com.asha.nightowllib.handler.impls.ButtonHandler;
 import com.asha.nightowllib.handler.impls.ImageViewHandler;
 import com.asha.nightowllib.handler.impls.TextViewHandler;
 import com.asha.nightowllib.handler.impls.ViewHandler;
-import com.asha.nightowllib.paint.imps.ActionbarContainerBgPaint;
 import com.asha.nightowllib.paint.imps.AlphaPaint;
 import com.asha.nightowllib.paint.imps.BackgroundPaint;
 import com.asha.nightowllib.paint.imps.ImageViewSrcPaint;
@@ -23,7 +21,6 @@ import static com.asha.nightowllib.handler.OwlHandlerManager.registerHandler;
 public class NightOwlTable {
     protected static void init(){
         registerHandler(ImageViewHandler.class);
-        registerHandler(ActionBarContainerHandler.class);
         registerHandler(TextViewHandler.class);
         registerHandler(ButtonHandler.class);
         registerHandler(ViewHandler.class);
@@ -48,11 +45,4 @@ public class NightOwlTable {
         @OwlStyleable int[] NightOwl_ImageView =  R.styleable.NightOwl_ImageView;
         @OwlAttr(ImageViewSrcPaint.class) int NightOwl_ImageView_night_src = R.styleable.NightOwl_ImageView_night_src;
     }
-
-
-    @OwlAttrScope(2400) public interface OwlActionbarContainer {
-        @OwlStyleable int[] NightOwl_Theme = R.styleable.NightOwl_Theme;
-        @OwlAttr(ActionbarContainerBgPaint.class) int NightOwl_Theme_night_colorPrimary = R.styleable.NightOwl_Theme_night_colorPrimary;
-    }
-
 }

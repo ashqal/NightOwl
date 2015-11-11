@@ -49,6 +49,7 @@ public class CustomView extends View implements IOwlObserver {
 
         mPaint = new Paint();
         mPaint.setColor(mColor);
+        mPaint.setAntiAlias(true);
     }
 
     @Override
@@ -58,10 +59,16 @@ public class CustomView extends View implements IOwlObserver {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawCircle(getMeasuredWidth()>>1
-                , getMeasuredHeight()>>1
-                , getMeasuredHeight()>>1
-                , mPaint);
+        float radius = getMeasuredHeight()>>1;
+        float centerX = getMeasuredWidth()>>1;
+        float centerY = getMeasuredHeight()>>1;
+        canvas.drawCircle(centerX,centerY,radius,mPaint);
+        canvas.drawCircle(centerX-radius*4,centerY,radius,mPaint);
+        canvas.drawCircle(centerX-radius*8,centerY,radius,mPaint);
+        canvas.drawCircle(centerX-radius*12,centerY,radius,mPaint);
+        canvas.drawCircle(centerX+radius*4,centerY,radius,mPaint);
+        canvas.drawCircle(centerX+radius*8,centerY,radius,mPaint);
+        canvas.drawCircle(centerX+radius*12,centerY,radius,mPaint);
     }
 
     @Override

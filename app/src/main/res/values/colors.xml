@@ -9,7 +9,9 @@
     <color name="colorAccent2">#fc4182</color>
 
     <color name="colorPrimary_n">#111111</color>
-    <color name="colorPrimaryDark_n">#000000</color>
+    <color name="colorPrimary2_n">#191a38</color>
+    <color name="colorPrimaryDark_n">#010101</color>
+    <color name="colorPrimaryDark2_n">#040418</color>
     <color name="colorAccent_n">#334869</color>
 
     <color name="foreground_color_normal">@android:color/transparent</color>

@@ -1,21 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:night="http://schemas.android.com/apk/res-auto"
-    android:fitsSystemWindows="true"
-    android:background="@color/background_color"
-    night:night_background="@color/background_color_n"
-    tools:context="com.asha.nightowl.SettingActivity">
-    <ImageButton
-        android:id="@+id/button"
-        android:src="@drawable/iconfont_mianxingtubiaorijian"
-        night:night_src="@drawable/iconfont_yejianmoshi"
-        android:layout_centerInParent="true"
-        android:background="@drawable/selector_background_color"
-        night:night_background="@drawable/selector_background_color_n"
-        android:layout_width="256dp"
-        android:layout_height="256dp"
-        tools:ignore="MissingPrefix" />
-</RelativeLayout>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:night="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:fitsSystemWindows="true"
+android:background="@color/background_color"
+night:night_background="@color/background_color_n"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="com.asha.myapplication.MainActivity">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:background="@color/colorPrimary"
+        night:night_background="@color/colorPrimary_n"
+        >
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </android.support.design.widget.AppBarLayout>
+    <RelativeLayout
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageButton
+            android:id="@+id/button"
+            android:src="@drawable/iconfont_mianxingtubiaorijian"
+            night:night_src="@drawable/iconfont_yejianmoshi"
+            android:layout_centerInParent="true"
+            android:background="@drawable/selector_background_color"
+            night:night_background="@drawable/selector_background_color_n"
+            android:layout_width="256dp"
+            android:layout_height="256dp"
+            tools:ignore="MissingPrefix" />
+        <FrameLayout
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/button"
+            android:id="@+id/custom"
+            android:layout_width="match_parent"
+            android:layout_height="16dp">
+        </FrameLayout>
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

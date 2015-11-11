@@ -75,6 +75,19 @@ public class NightOwlUtil {
         return null;
     }
 
+    public static int getFieldIntSafely(Class clz, String fieldName, Object instance){
+        try {
+            Field field = clz.getDeclaredField(fieldName);
+            field.setAccessible(true);
+            return field.getInt(instance);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public static int getStaticFieldIntSafely(Field field){
         try {
             return field.getInt(null);

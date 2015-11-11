@@ -2,8 +2,10 @@ package com.asha.nightowl;
 
 import android.app.Application;
 
-import com.asha.nightowl.custom.OwlTabLayout;
+import com.asha.nightowl.custom.CollapsingToolbarLayoutHandler;
+import com.asha.nightowl.custom.OwlCustomTable;
 import com.asha.nightowl.custom.TabLayoutHandler;
+import com.asha.nightowl.custom.ToolbarHandler;
 import com.asha.nightowllib.NightOwl;
 
 /**
@@ -17,6 +19,8 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
         NightOwl.builder().defualt(MainApplication.sDefualtMode).create();
-        NightOwl.owlRegisterHandler(TabLayoutHandler.class, OwlTabLayout.class);
+        NightOwl.owlRegisterHandler(TabLayoutHandler.class, OwlCustomTable.OwlTabLayout.class);
+        NightOwl.owlRegisterHandler(ToolbarHandler.class, OwlCustomTable.OwlToolbar.class);
+        NightOwl.owlRegisterHandler(CollapsingToolbarLayoutHandler.class, OwlCustomTable.OwlCollapsingToolbarLayout.class);
     }
 }

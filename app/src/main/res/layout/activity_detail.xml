@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:night="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,14 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height"
         android:background="@drawable/demo04"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
+        android:theme="@style/AppTheme.AppBarOverlay2">
+        <!--app:contentScrim="@color/colorAccent"-->
+        <!--app:collapsedTitleTextAppearance="@style/TextPrimary"-->
+        <!--app:expandedTitleTextAppearance="@style/TextSecondary"-->
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
+            app:contentScrim="@color/colorPrimary2"
+            night:night_contentScrim="@color/colorPrimary2_n"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <android.support.v7.widget.Toolbar
@@ -35,8 +39,8 @@
         xmlns:night="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_color"
-        night:night_background="@color/background_color_n"
+        android:background="@color/content_background_color"
+        night:night_background="@color/content_background_color_n"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="com.asha.nightowl.DetailActivity"
         tools:showIn="@layout/activity_detail">
@@ -48,17 +52,21 @@
             android:text="@string/large_text"
             android:layout_margin="16dp"
             android:paddingBottom="96dp"
+            night:night_textColor="#999999"
             />
 
     </android.support.v4.widget.NestedScrollView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email"
-        app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end" />
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="@dimen/fab_margin"-->
+        <!--android:src="@android:drawable/ic_dialog_email"-->
+        <!--app:layout_anchor="@id/app_bar"-->
+        <!--app:layout_anchorGravity="bottom|end"-->
+        <!--night:night_background="@color/colorAccent_n"-->
+
+        <!--/>-->
 
 </android.support.design.widget.CoordinatorLayout>
