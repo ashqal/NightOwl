@@ -17,7 +17,8 @@ public interface IOwlObserver {
      *
      * @param mode current style mode
      * @param activity notice that: it may be null
-     * @see com.asha.nightowllib.NightOwl#handleViewCreated(View, AttributeSet)
+     *
+     * @see com.asha.nightowllib.inflater.InjectedInflaterBase#handleOnCreateView(View, String, AttributeSet)
      */
     void onSkinChange(int mode, Activity activity);
 }

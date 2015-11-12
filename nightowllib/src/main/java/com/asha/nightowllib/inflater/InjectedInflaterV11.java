@@ -42,21 +42,21 @@ public class InjectedInflaterV11 extends InjectedInflaterBase {
 
     private void installPrivateFactory(){
         try {
-            Factory2 originPrviateFactory = (Factory2) sPrivateFactoryField.get(this);
-            installPrivateFactory(originPrviateFactory);
+            Factory2 originPrivateFactory = (Factory2) sPrivateFactoryField.get(this);
+            installPrivateFactory(originPrivateFactory);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
     }
 
-    private void installPrivateFactory(Factory2 originPrviateFactory){
+    private void installPrivateFactory(Factory2 originPrivateFactory){
         try {
-            // check originPrviateFactory is not null.
-            if ( originPrviateFactory == null ) return;
+            // check origin private Factory is not null.
+            if ( originPrivateFactory == null ) return;
             // already set
-            if ( originPrviateFactory instanceof PrivateFactoryWrapperImpl ) return;
+            if ( originPrivateFactory instanceof PrivateFactoryWrapperImpl ) return;
             // wrap PrivateFactory
-            Factory2 privateFactory = PrivateFactoryWrapperImpl.wrap(originPrviateFactory, this);
+            Factory2 privateFactory = PrivateFactoryWrapperImpl.wrap(originPrivateFactory, this);
             // replace it.
             sPrivateFactoryField.set(this, privateFactory);
         } catch (IllegalAccessException e) {

@@ -35,12 +35,13 @@ public class NightOwl {
     private static final String TAG = "NightOwl";
     private static final String WINDOW_INFLATER = "mLayoutInflater";
     private static final String THEME_INFLATER = "mInflater";
-    private AtomicInteger mMode = new AtomicInteger(0);
     private static NightOwl sInstance;
     static {
         NightOwlTable.init();
     }
 
+    private AtomicInteger mMode = new AtomicInteger(0);
+    private IOwlObserver mOwlObserver;
     private NightOwl(){
     }
 
@@ -117,6 +118,7 @@ public class NightOwl {
         }
 
         owl.mMode.set(mode);
+        if ( owl.mOwlObserver != null ) owl.mOwlObserver.onSkinChange(mode,activity);
     }
 
     /**
@@ -131,7 +133,7 @@ public class NightOwl {
             insertEmptyTag(target);
             view.onSkinChange(owlCurrentMode(), null);
         } else {
-            throw new IllegalArgumentException("owlAttach param must be a instance of View");
+            throw new IllegalArgumentException("owlRegisterCustom param must be a instance of View");
         }
     }
 
@@ -175,14 +177,27 @@ public class NightOwl {
 
     public static class Builder {
         private int mode;
+        private IOwlObserver owlObserver;
         public Builder defualt(int mode){
             this.mode = mode;
+            return this;
+        }
+
+        /**
+         * Subscribed by a owlObserver to know the skin change.
+         *
+         * @param owlObserver do some persistent working here
+         * @return Builder
+         */
+        public Builder subscribedBy(IOwlObserver owlObserver){
+            this.owlObserver = owlObserver;
             return this;
         }
         public NightOwl create(){
             if ( sInstance != null ) throw new RuntimeException("Do not create NightOwl again.");
             sInstance = new NightOwl();
             sInstance.mMode.set(mode);
+            sInstance.mOwlObserver = owlObserver;
             return sInstance;
         }
     }
