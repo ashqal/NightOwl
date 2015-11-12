@@ -20,16 +20,24 @@ public class OwlCustomTable {
         @OwlAttr(TabLayoutHandler.IndicatorColorPaint.class) int NightOwl_TabLayout_night_tabIndicatorColor = R.styleable.NightOwl_TabLayout_night_tabIndicatorColor;
     }
 
-    @OwlAttrScope(11000) public interface OwlToolbar extends NightOwlTable.OwlView {
+    @OwlAttrScope(10100) public interface OwlToolbar extends NightOwlTable.OwlView {
         @OwlStyleable
         int[] NightOwl_Toolbar = R.styleable.NightOwl_Toolbar;
         @OwlAttr(ToolbarHandler.TitleTextColorPaint.class) int NightOwl_Toolbar_night_titleTextColor = R.styleable.NightOwl_Toolbar_night_titleTextColor;
     }
 
-    @OwlAttrScope(12000) public interface OwlCollapsingToolbarLayout {
+    @OwlAttrScope(10200) public interface OwlCollapsingToolbarLayout {
         @OwlStyleable
         int[] NightOwl_CollapsingToolbarLayout = R.styleable.NightOwl_CollapsingToolbarLayout;
         @OwlAttr(CollapsingToolbarLayoutHandler.ContentScrimPaint.class) int NightOwl_CollapsingToolbarLayout_night_contentScrim = R.styleable.NightOwl_CollapsingToolbarLayout_night_contentScrim;
     }
+
+    public static final int CardViewScope = 10300;
+    @OwlAttrScope(CardViewScope) public interface OwlCardView {
+        @OwlStyleable
+        int[] NightOwl_CardView = R.styleable.NightOwl_CardView;
+        @OwlAttr(CardViewHandler.BackgroundPaint.class) int NightOwl_CardView_night_cardBackgroundColor = R.styleable.NightOwl_CardView_night_cardBackgroundColor;
+    }
+
 
 }

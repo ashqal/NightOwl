@@ -7,12 +7,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foreground="@drawable/selector_foreground_color"
-    android:background="@color/content_background_color"
-    night:night_background="@color/content_background_color_n"
+    app:cardBackgroundColor="@color/content_background_color"
+    night:night_cardBackgroundColor="@color/content_background_color_n"
     android:focusable="true"
     android:clickable="true"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:night="http://schemas.android.com/apk/res-auto">
+    xmlns:night="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

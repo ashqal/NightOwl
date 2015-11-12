@@ -2,6 +2,7 @@ package com.asha.nightowl;
 
 import android.app.Application;
 
+import com.asha.nightowl.custom.CardViewHandler;
 import com.asha.nightowl.custom.CollapsingToolbarLayoutHandler;
 import com.asha.nightowl.custom.OwlCustomTable;
 import com.asha.nightowl.custom.TabLayoutHandler;
@@ -22,5 +23,6 @@ public class MainApplication extends Application {
         NightOwl.owlRegisterHandler(TabLayoutHandler.class, OwlCustomTable.OwlTabLayout.class);
         NightOwl.owlRegisterHandler(ToolbarHandler.class, OwlCustomTable.OwlToolbar.class);
         NightOwl.owlRegisterHandler(CollapsingToolbarLayoutHandler.class, OwlCustomTable.OwlCollapsingToolbarLayout.class);
+        NightOwl.owlRegisterHandler(CardViewHandler.class,OwlCustomTable.OwlCardView.class);
     }
 }
