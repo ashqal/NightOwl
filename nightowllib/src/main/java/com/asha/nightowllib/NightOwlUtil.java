@@ -55,7 +55,7 @@ public class NightOwlUtil {
         if ( box instanceof ColorBox ){
             return (ColorBox) box;
         } else if ( box.equals(EMPTY_TAG) ) {
-            Log.e(TAG, "wtf, EMPTY_TAG...!!");
+            Log.d(TAG, "EMPTY_TAG...");
             return null;
         } else {
             Log.e(TAG, "wtf, NIGHT_OWL_VIEW_TAG had been used by someone else.");

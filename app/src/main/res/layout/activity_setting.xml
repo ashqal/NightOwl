@@ -7,8 +7,7 @@ android:fitsSystemWindows="true"
 android:background="@color/background_color"
 night:night_background="@color/background_color_n"
 android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context="com.asha.myapplication.MainActivity">
+android:layout_height="match_parent">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbarLayout"
         android:layout_width="match_parent"

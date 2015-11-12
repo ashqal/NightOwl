@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -14,11 +14,12 @@
         <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark</item>
         <item name="night_navigationBarColor" tools:targetApi="lollipop">@color/colorPrimary_n</item>
         <item name="night_statusBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark_n</item>
-        <!--android:titleTextColor="@color/tablayout_text_color_selected"-->
         <!--<item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>-->
     </style>
 
     <style name="AppTheme.NoActionBar">
+        <item name="titleTextColor">@color/tablayout_text_color_selected</item>
+        <item name="night_titleTextColor">@color/tablayout_text_color_selected_n</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
@@ -27,8 +28,6 @@
         <item name="colorPrimary">@color/colorPrimary2</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark2</item>
         <item name="colorAccent">@color/colorAccent2</item>
-        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
-        <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
     </style>
 
     <style name="MyTextStyle">
@@ -56,7 +55,7 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="night_titleTextColor">@color/tablayout_text_color_selected_n</item>
+
     </style>
 
     <style name="AppTheme.AppBarOverlay2" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -67,7 +66,6 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:colorBackground">#333333</item>
         <item name="android:textColor">#FFFFFF</item>
-        <item name="night_textColor">@color/tablayout_text_color_selected_n</item>
     </style>
 
     <style name="TextPrimary" parent="TextAppearance.AppCompat.Title">

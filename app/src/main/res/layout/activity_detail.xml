@@ -13,7 +13,6 @@
         android:layout_height="@dimen/app_bar_height"
         android:background="@drawable/demo04"
         android:theme="@style/AppTheme.AppBarOverlay2">
-        <!--app:contentScrim="@color/colorAccent"-->
         <!--app:collapsedTitleTextAppearance="@style/TextPrimary"-->
         <!--app:expandedTitleTextAppearance="@style/TextSecondary"-->
         <android.support.design.widget.CollapsingToolbarLayout
