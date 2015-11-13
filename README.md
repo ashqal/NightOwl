@@ -2,7 +2,7 @@
 ![Logo](https://raw.githubusercontent.com/ashqal/NightOwl/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
 </br>
 It is an experimental project for switching day/night mode on Andorid.
-
+View the [demo video](https://youtu.be/TV2_zAm446Q) on Youtube.
 
 ## Dependencies
 add nightowllib library to your project which rely on
@@ -42,6 +42,18 @@ public class DemoActivity extends AppCompatActivity {
     
 }
 ```
+
+switch skin everywhere as you like
+```java
+View v = findViewById(R.id.button);
+v.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        NightOwl.owlNewDress(SettingActivity.this);
+    }
+});
+```
+and enjoy it.
 
 ##Usage
 ###General component
