@@ -23,4 +23,8 @@
         <attr name="night_statusBarColor" format="color|reference"/>
     </declare-styleable>
 
+    <declare-styleable name="NightOwl_ListView">
+        <attr name="night_listSelector" format="color|reference" />
+        <attr name="night_divider" format="color|reference" />
+    </declare-styleable>
 </resources>

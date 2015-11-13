@@ -16,12 +16,13 @@
 
     <color name="foreground_color_normal">@android:color/transparent</color>
     <color name="foreground_color_pressed">#22000000</color>
+    <color name="foreground_color_pressed_n">@color/colorAccent_n</color>
 
     <color name="background_color">#efefef</color>
     <color name="background_color_n">#222222</color>
 
     <color name="content_background_color">#fafafa</color>
-    <color name="content_background_color_n">#111111</color>
+    <color name="content_background_color_n">#151515</color>
 
     <color name="background_color_pressed">#cccccc</color>
     <color name="background_color_n_pressed">#222a58</color>
@@ -30,5 +31,8 @@
     <color name="tablayout_text_color_selected">#ffffff</color>
     <color name="tablayout_text_color_n">#333333</color>
     <color name="tablayout_text_color_selected_n">#777777</color>
+
+    <color name="line_color">#dddddd</color>
+    <color name="line_color_n">#000000</color>
 
 </resources>
