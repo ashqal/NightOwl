@@ -15,7 +15,7 @@ public class ColorBox {
     // may override the value, so we use SparseArray
     private SparseArray<Object[]> mBox;
     private ColorBox() {
-        mBox = new SparseArray<>();
+        mBox = new SparseArray<>(4);
     }
 
     public void put(int attr, int scope, @NonNull Object... objects){

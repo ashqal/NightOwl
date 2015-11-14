@@ -24,6 +24,7 @@ public class OwlCustomTable {
         @OwlStyleable
         int[] NightOwl_Toolbar = R.styleable.NightOwl_Toolbar;
         @OwlAttr(ToolbarHandler.TitleTextColorPaint.class) int NightOwl_Toolbar_night_titleTextColor = R.styleable.NightOwl_Toolbar_night_titleTextColor;
+        @OwlAttr(ToolbarHandler.PopupThemePaint.class) int NightOwl_Toolbar_night_popupTheme = R.styleable.NightOwl_Toolbar_night_popupTheme;
     }
 
     @OwlAttrScope(10200) public interface OwlCollapsingToolbarLayout {

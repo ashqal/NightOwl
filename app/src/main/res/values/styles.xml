@@ -14,7 +14,34 @@
         <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark</item>
         <item name="night_navigationBarColor" tools:targetApi="lollipop">@color/colorPrimary_n</item>
         <item name="night_statusBarColor" tools:targetApi="lollipop">@color/colorPrimaryDark_n</item>
-        <!--<item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>-->
+        <!--<item name="night_additionThemeDay">@style/AdditionThemeDay</item>-->
+        <!--<item name="night_additionThemeNight">@style/AdditionThemeNight</item>-->
+        <!--<item name="actionOverflowMenuStyle">@style/MyPopupMenu</item>-->
+        <!--<item name="night_actionOverflowMenuStyle">@style/MyPopupMenu.Night</item>-->
+        <item name="night_popupTheme">@style/MyPopupMenu.Night</item>
+    </style>
+
+
+    <style name="MyPopupMenu">
+        <item name="android:colorBackground">#fff1c0</item>
+    </style>
+    <style name="MyPopupMenu.Night">
+        <item name="android:colorBackground">#ffacac</item>
+    </style>
+
+    <style name="MyActionOverflowMenu" parent="@style/Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:popupBackground">#fff1c0</item>
+    </style>
+    <style name="MyActionOverflowMenu.Night">
+        <item name="android:popupBackground">#ffacac</item>
+    </style>
+
+    <style name="AdditionThemeDay">
+        <item name="actionOverflowMenuStyle">@style/MyActionOverflowMenu</item>
+    </style>
+
+    <style name="AdditionThemeNight">
+        <item name="actionOverflowMenuStyle">@style/MyActionOverflowMenu.Night</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -64,7 +91,8 @@
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:colorBackground">#333333</item>
+        <item name="android:colorBackground">#FF0011</item>
+        <!--<item name="android:popupBackground">#FF0011</item>-->
         <item name="android:textColor">#FFFFFF</item>
     </style>
 

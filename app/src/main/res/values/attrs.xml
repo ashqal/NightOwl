@@ -6,6 +6,7 @@
     </declare-styleable>
     <declare-styleable name="NightOwl_Toolbar">
         <attr name="night_titleTextColor" format="color|reference"/>
+        <attr name="night_popupTheme" format="color|reference"/>
     </declare-styleable>
     <declare-styleable name="NightOwl_CollapsingToolbarLayout">
         <attr name="night_contentScrim" format="color|reference"/>
