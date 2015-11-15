@@ -3,11 +3,12 @@ package com.asha.nightowl.custom;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
+import android.support.v7.internal.view.menu.BaseMenuPresenter;
+import android.support.v7.internal.view.menu.MenuPresenter;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.asha.nightowl.R;
 import com.asha.nightowllib.NightOwlUtil;
 import com.asha.nightowllib.handler.annotations.OwlHandle;
 import com.asha.nightowllib.handler.impls.AbsSkinHandler;
@@ -26,16 +27,19 @@ public class ToolbarHandler extends AbsSkinHandler implements OwlCustomTable.Owl
     }
 
     public static class PopupThemePaint implements IOwlPaint{
-        //private ActionMenuView mMenuView;
         private static Field sActionMenuViewField;
-        private static Field sPopupContextField;
+        private static Field sPresenterField;
+        private static Field sContextField;
         static {
             try {
                 sActionMenuViewField = Toolbar.class.getDeclaredField("mMenuView");
                 sActionMenuViewField.setAccessible(true);
 
-                sPopupContextField = ActionMenuView.class.getDeclaredField("mPopupContext");
-                sPopupContextField.setAccessible(true);
+                sPresenterField = ActionMenuView.class.getDeclaredField("mPresenter");
+                sPresenterField.setAccessible(true);
+
+                sContextField = BaseMenuPresenter.class.getDeclaredField("mContext");
+                sContextField.setAccessible(true);
             } catch (NoSuchFieldException e) {
                 e.printStackTrace();
             }
@@ -47,10 +51,11 @@ public class ToolbarHandler extends AbsSkinHandler implements OwlCustomTable.Owl
             try {
                 ActionMenuView actionMenuView = (ActionMenuView) sActionMenuViewField.get(toolbar);
                 if ( actionMenuView == null ){
-                    toolbar.getContext().getTheme().applyStyle(themeId,true);
+                    toolbar.getContext().setTheme(themeId);
                 } else {
-                    Context context = (Context) sPopupContextField.get(actionMenuView);
-                    context.getTheme().applyStyle(themeId,true);
+                    MenuPresenter presenter = (MenuPresenter) sPresenterField.get(actionMenuView);
+                    Context context = (Context) sContextField.get(presenter);
+                    context.setTheme(themeId);
                 }
 
             } catch (IllegalAccessException e) {
@@ -61,8 +66,9 @@ public class ToolbarHandler extends AbsSkinHandler implements OwlCustomTable.Owl
 
         @Override
         public void setup(@NonNull View view, @NonNull TypedArray a, int attr, int scope, @NonNull ColorBox into) {
-            int theme1 = R.style.AdditionThemeDay;//toolbar.getPopupTheme();
-            int theme2 = R.style.AdditionThemeNight;//a.getResourceId(attr,0);
+            Toolbar toolbar = (Toolbar) view;
+            int theme1 = toolbar.getPopupTheme();
+            int theme2 = a.getResourceId(attr,0);
 
             into.put(attr,scope,theme1,theme2);
         }

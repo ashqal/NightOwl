@@ -7,16 +7,4 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_change_day"
-        android:orderInCategory="100"
-        android:title="changeDay"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_change_night"
-        android:orderInCategory="100"
-        android:title="changeNight"
-        app:showAsAction="never" />
 </menu>

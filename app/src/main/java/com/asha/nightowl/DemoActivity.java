@@ -1,6 +1,5 @@
 package com.asha.nightowl;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -35,23 +34,12 @@ public class DemoActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //toolbar.setPopupTheme(R.style.MyPopupMenu);
-        //toolbar.setPopupTheme(R.style.MyPopupMenu_Night);
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         PagerAdapter pa = new DemoPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pa);
         tabLayout.setupWithViewPager(viewPager);
-    }
-
-    @Override
-    protected void onApplyThemeResource(Resources.Theme theme, int resid, boolean first) {
-        super.onApplyThemeResource(theme, resid, first);
-        // theme.applyStyle(R.style.AdditionThemeDay, true);
-        // Log.e(TAG, String.format("%s %d", theme, R.style.AdditionThemeDay));
-        //theme.applyStyle(R.style.AdditionThemeNight,true);
     }
 
     @Override
@@ -71,15 +59,6 @@ public class DemoActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.action_settings:
                 SettingActivity.launch(this); return true;
-            case R.id.action_change_day:
-                //toolbar.getContext().getTheme().applyStyle(R.style.AdditionThemeDay,true);
-                toolbar.setPopupTheme(R.style.MyPopupMenu);
-                return true;
-
-            case R.id.action_change_night:
-                //toolbar.getContext().getTheme().applyStyle(R.style.AdditionThemeNight,true);
-                toolbar.setPopupTheme(R.style.MyPopupMenu_Night);
-                return true;
         }
         return super.onOptionsItemSelected(item);
     }

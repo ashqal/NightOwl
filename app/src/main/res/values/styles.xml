@@ -18,15 +18,16 @@
         <!--<item name="night_additionThemeNight">@style/AdditionThemeNight</item>-->
         <!--<item name="actionOverflowMenuStyle">@style/MyPopupMenu</item>-->
         <!--<item name="night_actionOverflowMenuStyle">@style/MyPopupMenu.Night</item>-->
-        <item name="night_popupTheme">@style/MyPopupMenu.Night</item>
     </style>
 
 
-    <style name="MyPopupMenu">
+    <style name="MyPopupMenu" parent="ThemeOverlay.AppCompat">
         <item name="android:colorBackground">#fff1c0</item>
+        <item name="android:textColor">#ffb700</item>
     </style>
     <style name="MyPopupMenu.Night">
         <item name="android:colorBackground">#ffacac</item>
+        <item name="android:textColor">#ff0000</item>
     </style>
 
     <style name="MyActionOverflowMenu" parent="@style/Widget.AppCompat.PopupMenu.Overflow">
