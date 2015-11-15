@@ -18,7 +18,6 @@ import com.asha.nightowllib.paint.OwlPaintManager;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.asha.nightowllib.NightOwlUtil.checkBeforeLollipop;
 import static com.asha.nightowllib.NightOwlUtil.checkNonNull;
 import static com.asha.nightowllib.NightOwlUtil.checkViewCollected;
 import static com.asha.nightowllib.NightOwlUtil.injectLayoutInflater;
@@ -76,8 +75,8 @@ public class NightOwl {
         OwlViewContext viewContext = obtainViewContext(root);
         checkNonNull(viewContext, "OwlViewContext can not be null!");
 
-        // not support before lollipop.
-        if ( !checkBeforeLollipop() ) viewContext.setupWithCurrentActivity(activity);
+        // setup some observer
+        viewContext.setupWithCurrentActivity(activity);
 
         // init set
         viewContext.notifyObserver(sharedInstance().mMode.get(), activity);

@@ -20,6 +20,8 @@ android:layout_height="match_parent">
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:titleTextColor="#ffffff"
+            night:night_titleTextColor="@color/tablayout_text_color_selected_n"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
     </android.support.design.widget.AppBarLayout>
     <RelativeLayout

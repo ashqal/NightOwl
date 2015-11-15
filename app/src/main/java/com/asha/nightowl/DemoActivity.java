@@ -21,6 +21,9 @@ import com.asha.nightowllib.NightOwl;
  * hzqiujiadi ashqalcn@gmail.com
  */
 public class DemoActivity extends AppCompatActivity {
+    private static final String TAG = "DemoActivity";
+
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         NightOwl.owlBeforeCreate(this);
@@ -28,7 +31,7 @@ public class DemoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_demo);
         NightOwl.owlAfterCreate(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
@@ -55,8 +58,7 @@ public class DemoActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_settings:
-                SettingActivity.launch(this);
-                return true;
+                SettingActivity.launch(this); return true;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -21,6 +21,8 @@
         <attr name="night_colorAccent" format="color|reference"/>
         <attr name="night_navigationBarColor" format="color|reference"/>
         <attr name="night_statusBarColor" format="color|reference"/>
+        <attr name="night_additionThemeDay" format="reference"/>
+        <attr name="night_additionThemeNight" format="reference"/>
     </declare-styleable>
 
     <declare-styleable name="NightOwl_ListView">
