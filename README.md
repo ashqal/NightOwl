@@ -13,7 +13,7 @@ compile 'com.android.support:appcompat-v7:23.1.0'
 ## Setup
 init the NightOwl in Application class, such as
 ```java
- NightOwl.builder().defualt(MainApplication.sDefualtMode).create();
+ NightOwl.builder().defaultMode(0).create();
 ```
 then you need call three method in your Activity class, such as
 ```java

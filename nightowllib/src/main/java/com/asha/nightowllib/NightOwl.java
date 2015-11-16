@@ -16,8 +16,6 @@ import com.asha.nightowllib.observer.OwlViewContext;
 import com.asha.nightowllib.paint.ColorBox;
 import com.asha.nightowllib.paint.OwlPaintManager;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import static com.asha.nightowllib.NightOwlUtil.checkNonNull;
 import static com.asha.nightowllib.NightOwlUtil.checkViewCollected;
 import static com.asha.nightowllib.NightOwlUtil.injectLayoutInflater;
@@ -39,7 +37,7 @@ public class NightOwl {
         NightOwlTable.init();
     }
 
-    private AtomicInteger mMode = new AtomicInteger(0);
+    private int mMode = 0;
     private IOwlObserver mOwlObserver;
     private NightOwl(){
     }
@@ -79,12 +77,12 @@ public class NightOwl {
         viewContext.setupWithCurrentActivity(activity);
 
         // init set
-        viewContext.notifyObserver(sharedInstance().mMode.get(), activity);
+        viewContext.notifyObserver(sharedInstance().mMode, activity);
     }
 
     public static void owlResume( Activity activity ){
         NightOwl nightOwl = sharedInstance();
-        int targetMode = nightOwl.mMode.get();
+        int targetMode = nightOwl.mMode;
 
         owlDressUp(targetMode, activity);
     }
@@ -116,7 +114,7 @@ public class NightOwl {
             viewContext.notifyObserver(mode, activity);
         }
 
-        owl.mMode.set(mode);
+        owl.mMode = mode;
         if ( owl.mOwlObserver != null ) owl.mOwlObserver.onSkinChange(mode,activity);
     }
 
@@ -142,7 +140,7 @@ public class NightOwl {
     }
 
     public static int owlCurrentMode(){
-        return sharedInstance().mMode.get();
+        return sharedInstance().mMode;
     }
 
     private static void innerRefreshSkin(int mode, View view ){
@@ -177,7 +175,7 @@ public class NightOwl {
     public static class Builder {
         private int mode;
         private IOwlObserver owlObserver;
-        public Builder defualt(int mode){
+        public Builder defaultMode(int mode){
             this.mode = mode;
             return this;
         }
@@ -195,7 +193,7 @@ public class NightOwl {
         public NightOwl create(){
             if ( sInstance != null ) throw new RuntimeException("Do not create NightOwl again.");
             sInstance = new NightOwl();
-            sInstance.mMode.set(mode);
+            sInstance.mMode = mode;
             sInstance.mOwlObserver = owlObserver;
             return sInstance;
         }

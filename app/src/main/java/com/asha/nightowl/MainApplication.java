@@ -25,7 +25,7 @@ public class MainApplication extends Application {
         SharedPreferences preferences = getSharedPreferences("NightOwlDemo",Activity.MODE_PRIVATE);
         int mode = preferences.getInt("mode",0);
 
-        NightOwl.builder().subscribedBy(new SkinObserver()).defualt(mode).create();
+        NightOwl.builder().subscribedBy(new SkinObserver()).defaultMode(mode).create();
         NightOwl.owlRegisterHandler(TabLayoutHandler.class, OwlCustomTable.OwlTabLayout.class);
         NightOwl.owlRegisterHandler(ToolbarHandler.class, OwlCustomTable.OwlToolbar.class);
         NightOwl.owlRegisterHandler(CollapsingToolbarLayoutHandler.class, OwlCustomTable.OwlCollapsingToolbarLayout.class);
