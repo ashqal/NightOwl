@@ -1,8 +1,8 @@
 # NightOwl
 ![Logo](https://raw.githubusercontent.com/ashqal/NightOwl/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
 </br>
-It is an experimental project for switching day/night mode on Android.
-View the [demo video](https://youtu.be/TV2_zAm446Q) on Youtube.
+It is an experimental project for switching day/night mode on Android. 
+View the [demo video](https://youtu.be/TV2_zAm446Q) on Youtube. This will help you understand the project.
 
 ## Dependencies
 add nightowllib library to your project which rely on
