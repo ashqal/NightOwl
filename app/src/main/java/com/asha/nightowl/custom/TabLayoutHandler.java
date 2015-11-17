@@ -47,11 +47,11 @@ public class TabLayoutHandler extends AbsSkinHandler implements OwlCustomTable.O
         }
 
         @Override
-        public void setup(@NonNull View view, @NonNull TypedArray a, int attr, int scope, @NonNull ColorBox into) {
+        public Object[] setup(@NonNull View view, @NonNull TypedArray a, int attr) {
             TabLayout tabLayout = (TabLayout) view;
             ColorStateList csl1 = tabLayout.getTabTextColors();
             ColorStateList csl2 = a.getColorStateList(attr);
-            into.put(attr,scope,csl1,csl2);
+            return new ColorStateList[]{ csl1, csl2 };
         }
     }
 
@@ -65,14 +65,14 @@ public class TabLayoutHandler extends AbsSkinHandler implements OwlCustomTable.O
         }
 
         @Override
-        public void setup(@NonNull View view, @NonNull TypedArray a, int attr, int scope, @NonNull ColorBox into) {
+        public Object[] setup(@NonNull View view, @NonNull TypedArray a, int attr) {
             // there is no method getSelectedTabIndicatorColor
             // we can insert later
             int color = 0;
             int color2 = a.getColor(attr,0);
-            into.put(attr,scope,color,color2);
-
+            return new Integer[]{color,color2};
         }
+
     }
 
 }

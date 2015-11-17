@@ -12,7 +12,6 @@ import android.view.View;
 import com.asha.nightowllib.NightOwlUtil;
 import com.asha.nightowllib.handler.annotations.OwlHandle;
 import com.asha.nightowllib.handler.impls.AbsSkinHandler;
-import com.asha.nightowllib.paint.ColorBox;
 import com.asha.nightowllib.paint.IOwlPaint;
 
 import java.lang.reflect.Field;
@@ -65,12 +64,11 @@ public class ToolbarHandler extends AbsSkinHandler implements OwlCustomTable.Owl
         }
 
         @Override
-        public void setup(@NonNull View view, @NonNull TypedArray a, int attr, int scope, @NonNull ColorBox into) {
+        public Object[] setup(@NonNull View view, @NonNull TypedArray a, int attr) {
             Toolbar toolbar = (Toolbar) view;
             int theme1 = toolbar.getPopupTheme();
             int theme2 = a.getResourceId(attr,0);
-
-            into.put(attr,scope,theme1,theme2);
+            return new Integer[]{theme1,theme2};
         }
     }
 
@@ -84,13 +82,11 @@ public class ToolbarHandler extends AbsSkinHandler implements OwlCustomTable.Owl
         }
 
         @Override
-        public void setup(@NonNull View view, @NonNull TypedArray a, int attr, int scope, @NonNull ColorBox into) {
+        public Object[] setup(@NonNull View view, @NonNull TypedArray a, int attr) {
             Toolbar toolbar = (Toolbar) view;
             int color1 = NightOwlUtil.getFieldIntSafely(Toolbar.class, "mTitleTextColor", toolbar);
-            if ( color1 == 0 ) color1 = 0xFFFFFFFF;
             int color2 = a.getColor(attr,color1);
-
-            into.put(attr,scope,color1,color2);
+            return new Integer[]{ color1,color2 };
         }
     }
 }

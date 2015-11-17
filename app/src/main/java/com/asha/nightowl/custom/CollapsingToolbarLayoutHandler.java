@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.asha.nightowllib.handler.annotations.OwlHandle;
 import com.asha.nightowllib.handler.impls.AbsSkinHandler;
-import com.asha.nightowllib.paint.ColorBox;
 import com.asha.nightowllib.paint.IOwlPaint;
 
 /**
@@ -28,11 +27,11 @@ public class CollapsingToolbarLayoutHandler extends AbsSkinHandler implements Ow
         }
 
         @Override
-        public void setup(@NonNull View view, @NonNull TypedArray a, int attr, int scope, @NonNull ColorBox into) {
+        public Object[] setup(@NonNull View view, @NonNull TypedArray a, int attr) {
             CollapsingToolbarLayout layout = (CollapsingToolbarLayout) view;
             Drawable drawable1 = layout.getContentScrim();
             Drawable drawable2 = a.getDrawable(attr);
-            into.put(attr,scope,drawable1,drawable2);
+            return new Drawable[]{drawable1,drawable2};
         }
     }
 }

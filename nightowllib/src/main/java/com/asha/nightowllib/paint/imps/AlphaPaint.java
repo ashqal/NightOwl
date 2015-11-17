@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
 
-import com.asha.nightowllib.paint.ColorBox;
 import com.asha.nightowllib.paint.IOwlPaint;
 
 /**
@@ -22,9 +21,10 @@ public class AlphaPaint implements IOwlPaint {
     }
 
     @Override
-    public void setup(@NonNull View view, @NonNull TypedArray a, int attr, int scope, @NonNull ColorBox into) {
+    public Object[] setup(@NonNull View view, @NonNull TypedArray a, int attr) {
+
         Float alpha1 = ViewCompat.getAlpha(view);
         Float alpha2 = a.getFloat(attr, alpha1);
-        into.put(attr, scope, alpha1, alpha2);
+        return new Float[]{ alpha1, alpha2 };
     }
 }

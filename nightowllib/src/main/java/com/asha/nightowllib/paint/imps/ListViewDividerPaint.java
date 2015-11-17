@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ListView;
 
-import com.asha.nightowllib.paint.ColorBox;
 import com.asha.nightowllib.paint.IOwlPaint;
 
 /**
@@ -23,10 +22,10 @@ public class ListViewDividerPaint implements IOwlPaint {
     }
 
     @Override
-    public void setup(@NonNull View view, @NonNull TypedArray a, int attr, int scope, @NonNull ColorBox into) {
+    public Object[] setup(@NonNull View view, @NonNull TypedArray a, int attr) {
         ListView listView = (ListView) view;
         Drawable drawable1 = listView.getDivider();
         Drawable drawable2 = a.getDrawable(attr);
-        into.put(attr,scope,drawable1,drawable2);
+        return new Drawable[]{ drawable1, drawable2 };
     }
 }
