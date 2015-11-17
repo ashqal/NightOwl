@@ -45,10 +45,11 @@ public class CardViewHandler extends AbsSkinHandler implements OwlCustomTable.Ow
         }
 
         @Override
-        public void setup(@NonNull View view, @NonNull TypedArray a, int attr, int scope, @NonNull ColorBox into) {
+        public Object[] setup(@NonNull View view, @NonNull TypedArray a, int attr) {
             int color1 = 0;
             int color2 = a.getColor(attr,0);
-            into.put(attr,scope,color1,color2);
+
+            return new Integer[]{ color1,color2};
         }
     }
 }

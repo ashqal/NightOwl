@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
-import com.asha.nightowllib.paint.ColorBox;
 import com.asha.nightowllib.paint.IOwlPaint;
 
 /**
@@ -25,11 +24,10 @@ public class TextColorPaint implements IOwlPaint {
     }
 
     @Override
-    public void setup(@NonNull View view, @NonNull TypedArray a, int attr, int scope, @NonNull ColorBox into) {
+    public Object[] setup(@NonNull View view, @NonNull TypedArray a, int attr) {
         TextView tv = (TextView) view;
         ColorStateList color1 = tv.getTextColors();
         ColorStateList color2 = a.getColorStateList(attr);
-        into.put(attr, scope, color1, color2);
+        return new ColorStateList[]{ color1, color2 };
     }
-
 }

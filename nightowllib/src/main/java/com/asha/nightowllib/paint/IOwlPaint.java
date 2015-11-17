@@ -13,5 +13,5 @@ import android.view.View;
  */
 public interface IOwlPaint {
     void draw(@NonNull View view, @NonNull Object value);
-    void setup(@NonNull View view, @NonNull TypedArray a, int attr, int scope,@NonNull ColorBox into);
+    Object[] setup(@NonNull View view, @NonNull TypedArray a, int attr);
 }

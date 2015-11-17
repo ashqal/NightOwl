@@ -78,7 +78,8 @@ public abstract class AbsSkinHandler implements ISkinHandler {
     private void obtainStyle(View view
             , ColorBox box
             , int scope
-            , @NonNull TypedArray a){
+            , @NonNull TypedArray a
+            ){
 
         int n = a.getIndexCount();
         for (int i = 0; i < n; i++) {
@@ -88,7 +89,8 @@ public abstract class AbsSkinHandler implements ISkinHandler {
             IOwlPaint paint = queryPaint(attr+scope);
             if ( paint == null) {
                 Log.d(TAG, "Can't find paint of attr:" + attr + " scope:" + scope); continue; }
-            paint.setup(view,a,attr,scope,box);
+            Object[] values = paint.setup(view,a,attr);
+            if ( values != null ) box.put(attr, scope, values);
         }
     }
 

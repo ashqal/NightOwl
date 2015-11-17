@@ -6,7 +6,6 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.view.View;
 
-import com.asha.nightowllib.paint.ColorBox;
 import com.asha.nightowllib.paint.IOwlPaint;
 
 /**
@@ -23,10 +22,10 @@ public class BackgroundPaint implements IOwlPaint {
     }
 
     @Override
-    public void setup(@NonNull View view, @NonNull TypedArray a, int attr, int scope, @NonNull ColorBox into) {
+    public Object[] setup(@NonNull View view, @NonNull TypedArray a, int attr) {
         Drawable bg1 = view.getBackground();
         Drawable bg2 = a.getDrawable(attr);
-        into.put(attr, scope, bg1, bg2);
+        return new Drawable[]{bg1, bg2};
     }
 
     private void setBackgroundCompact(View view,Drawable drawable){
