@@ -1,7 +1,6 @@
 package com.asha.nightowllib.paint;
 
 import android.content.res.TypedArray;
-import android.support.annotation.NonNull;
 import android.view.View;
 
 /**
@@ -12,6 +11,6 @@ import android.view.View;
  * draw draw draw draw
  */
 public interface IOwlPaint {
-    void draw(@NonNull View view, @NonNull Object value);
-    Object[] setup(@NonNull View view, @NonNull TypedArray a, int attr);
+    void draw(View view, Object value);
+    Object[] setup(View view, TypedArray a, int attr);
 }

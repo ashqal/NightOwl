@@ -3,7 +3,6 @@ package com.asha.nightowllib.paint.imps;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.asha.nightowllib.paint.IOwlPaint;
@@ -22,7 +21,7 @@ public class BackgroundPaint implements IOwlPaint {
     }
 
     @Override
-    public Object[] setup(@NonNull View view, @NonNull TypedArray a, int attr) {
+    public Object[] setup(View view, TypedArray a, int attr) {
         Drawable bg1 = view.getBackground();
         Drawable bg2 = a.getDrawable(attr);
         return new Drawable[]{bg1, bg2};

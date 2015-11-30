@@ -1,6 +1,5 @@
 package com.asha.nightowllib;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,15 +40,15 @@ public class NightOwlUtil {
         else return false;
     }
 
-    public static void insertSkinBox(@NonNull View view, ColorBox box){
+    public static void insertSkinBox(View view, ColorBox box){
         view.setTag(NIGHT_OWL_VIEW_TAG, box);
     }
 
-    public static void insertEmptyTag(@NonNull View view){
+    public static void insertEmptyTag(View view){
         view.setTag(NIGHT_OWL_VIEW_TAG, EMPTY_TAG);
     }
 
-    public static ColorBox obtainSkinBox(@NonNull View view){
+    public static ColorBox obtainSkinBox(View view){
         Object box = view.getTag(NIGHT_OWL_VIEW_TAG);
         checkNonNull(box,"wtf, it can't be null.");
         if ( box instanceof ColorBox ){
@@ -63,11 +62,11 @@ public class NightOwlUtil {
         return null;
     }
 
-    public static void insertViewContext(@NonNull View view, OwlViewContext viewContext){
+    public static void insertViewContext(View view, OwlViewContext viewContext){
         view.setTag(NIGHT_OWL_VIEW_TAG + 1,viewContext);
     }
 
-    public static OwlViewContext obtainViewContext(@NonNull View view){
+    public static OwlViewContext obtainViewContext(View view){
         Object observable = view.getTag(NIGHT_OWL_VIEW_TAG + 1);
         if ( observable != null && observable instanceof OwlViewContext){
             return (OwlViewContext) observable;

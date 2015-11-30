@@ -2,7 +2,6 @@ package com.asha.nightowllib.paint.imps;
 
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ListView;
 
@@ -14,7 +13,7 @@ import com.asha.nightowllib.paint.IOwlPaint;
  */
 public class ListViewDividerPaint implements IOwlPaint {
     @Override
-    public void draw(@NonNull View view, @NonNull Object value) {
+    public void draw(View view, Object value) {
         ListView listView = (ListView) view;
         int listHeight = listView.getDividerHeight();
         listView.setDivider((Drawable) value);
@@ -22,7 +21,7 @@ public class ListViewDividerPaint implements IOwlPaint {
     }
 
     @Override
-    public Object[] setup(@NonNull View view, @NonNull TypedArray a, int attr) {
+    public Object[] setup(View view, TypedArray a, int attr) {
         ListView listView = (ListView) view;
         Drawable drawable1 = listView.getDivider();
         Drawable drawable2 = a.getDrawable(attr);

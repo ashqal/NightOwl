@@ -13,7 +13,7 @@
     android:clickable="true"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:night="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

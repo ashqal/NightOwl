@@ -1,7 +1,6 @@
 package com.asha.nightowllib;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,7 +86,7 @@ public class NightOwl {
         owlDressUp(targetMode, activity);
     }
 
-    public static void owlNewDress( @NonNull Activity activity ) {
+    public static void owlNewDress( Activity activity ) {
         int current = owlCurrentMode() + 1;
         current %= 2;
 
@@ -99,7 +98,7 @@ public class NightOwl {
         innerRefreshSkin(mode, view);
     }
 
-    private static void owlDressUp( int mode, @NonNull Activity activity ){
+    private static void owlDressUp( int mode, Activity activity ){
         // View tree
         NightOwl owl = sharedInstance();
         View root = activity.getWindow().getDecorView();
@@ -124,7 +123,7 @@ public class NightOwl {
      * @param view instanceof IOwlObserver & View
      *             NightOwl will trigger view.onSkinChange immediately.
      */
-    public static void owlRegisterCustom(@NonNull IOwlObserver view){
+    public static void owlRegisterCustom(IOwlObserver view){
         if ( view instanceof View ) {
             View target = (View) view;
             insertEmptyTag(target);

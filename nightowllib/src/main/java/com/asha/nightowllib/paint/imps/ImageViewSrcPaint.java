@@ -2,7 +2,6 @@ package com.asha.nightowllib.paint.imps;
 
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -23,7 +22,7 @@ public class ImageViewSrcPaint implements IOwlPaint {
     }
 
     @Override
-    public Object[] setup(@NonNull View view, @NonNull TypedArray a, int attr) {
+    public Object[] setup(View view, TypedArray a, int attr) {
         ImageView imageView = (ImageView) view;
         Drawable bg1 = imageView.getDrawable();
         Drawable bg2 = a.getDrawable(attr);

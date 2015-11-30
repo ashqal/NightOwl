@@ -1,6 +1,5 @@
 package com.asha.nightowllib.paint;
 
-import android.support.annotation.NonNull;
 import android.util.SparseArray;
 import android.view.View;
 
@@ -18,7 +17,7 @@ public class ColorBox {
         mBox = new SparseArray<>(4);
     }
 
-    public void put(int attr, int scope, @NonNull Object... objects){
+    public void put(int attr, int scope, Object... objects){
         mBox.put(attr + scope, objects);
     }
 

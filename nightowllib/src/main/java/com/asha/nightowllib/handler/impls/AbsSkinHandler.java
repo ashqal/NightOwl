@@ -3,7 +3,6 @@ package com.asha.nightowllib.handler.impls;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -78,7 +77,7 @@ public abstract class AbsSkinHandler implements ISkinHandler {
     private void obtainStyle(View view
             , ColorBox box
             , int scope
-            , @NonNull TypedArray a
+            , TypedArray a
             ){
 
         int n = a.getIndexCount();
