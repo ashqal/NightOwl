@@ -122,30 +122,39 @@ NightOwl.owlRegisterCustom(customView);
 ```
 
 ##Supported Attributes
-**View Table**
-Name              | Attr
-------------------| --------------------
-View              | night_background
-View              | night_alpha
+* View Table
 
-**TextView Table extends View Table**
+Name               | Attr
+------------------ | --------------------
+View               | night_background
+View               | night_alpha
+
+
+* TextView Table extends View Table
+
 Name              | Attr
 ------------------| --------------------
 TextView          | night_textColor
 TextView          | night_textColorHint
 
-**ImageView Table extends TextView Table**
+
+* ImageView Table extends TextView Table
+
 Name              | Attr
 ------------------| --------------------
 ImageView         | night_src
 
-**ListView Table extends View Table**
+
+* ListView Table extends View Table
+
 Name              | Attr
 ------------------| --------------------
 ListView          | night_listSelector
 ListView          | night_divider
 
-**Theme Table**
+
+* Theme Table
+
 Name           | Attr
 ---------------| -------------------------
 Theme          | night_colorPrimary
