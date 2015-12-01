@@ -5,9 +5,9 @@ It is an experimental project for switching day/night mode on Android.
 View the [demo video](https://youtu.be/TV2_zAm446Q) on Youtube. This will help you understand the project.
 
 ## Dependencies
-add nightowllib library to your project which rely on
+add nightowllib library to your project which published in jCenter
 ```java
-compile 'com.android.support:appcompat-v7:23.1.0'
+compile 'com.asha.nightowllib:nightowllib:0.2'
 ```
 
 ## Setup
@@ -121,7 +121,42 @@ CustomView customView = new CustomView(this);
 NightOwl.owlRegisterCustom(customView);
 ```
 
-##Memory leak
+##Supported Attributes
+**View Table**
+Name              | Attr
+------------------| --------------------
+View              | night_background
+View              | night_alpha
+
+**TextView Table extends View Table**
+Name              | Attr
+------------------| --------------------
+TextView          | night_textColor
+TextView          | night_textColorHint
+
+**ImageView Table extends TextView Table**
+Name              | Attr
+------------------| --------------------
+ImageView         | night_src
+
+**ListView Table extends View Table**
+Name              | Attr
+------------------| --------------------
+ListView          | night_listSelector
+ListView          | night_divider
+
+**Theme Table**
+Name           | Attr
+---------------| -------------------------
+Theme          | night_colorPrimary
+Theme          | night_colorPrimaryDark
+Theme          | night_colorAccent
+Theme          | night_navigationBarColor
+Theme          | night_statusBarColor
+
+
+
+##Memory leak?
 Dont worry, there is no any Context or View instance saved in NightOwl, this project just insert some data object into a target view via
 ```
 view.setTag(int key, Object value);
