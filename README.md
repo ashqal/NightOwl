@@ -55,8 +55,8 @@ v.setOnClickListener(new View.OnClickListener() {
 ```
 and enjoy it.
 
-##Usage
-###General component
+## Usage
+### General component
 For example, if you want to change text color, you may 
 **via Attribute**
 ```java
@@ -103,7 +103,7 @@ For example, if you want to change text color, you may
 </style>
 ```
 
-###Custom View
+### Custom View
 ```java
 public class CustomView extends View implements IOwlObserver {
   @Override
@@ -121,7 +121,7 @@ CustomView customView = new CustomView(this);
 NightOwl.owlRegisterCustom(customView);
 ```
 
-##Supported Attributes
+## Supported Attributes
 * View Table
 
 Name               | Attr
@@ -165,13 +165,13 @@ Theme          | night_statusBarColor
 
 
 
-##Memory leak?
+## Memory leak?
 Dont worry, there is no any Context or View instance saved in NightOwl, this project just insert some data object into a target view via
 ```
 view.setTag(int key, Object value);
 ```
 
-##LICENSE
+## LICENSE
 ```
 Copyright 2015 Asha
 
